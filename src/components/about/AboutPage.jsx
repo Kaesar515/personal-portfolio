@@ -1,25 +1,18 @@
 import React from 'react';
-// You'll import your image like this:
-// import profilePhoto from '../../assets/images/profile/your-photo.jpg';
+import profilePhoto from '../../assets/images/profile/profile-photo.jpg';
 
 const AboutPage = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         {/* Image section */}
-        <div className="relative">
-          <div className="aspect-w-1 aspect-h-1 rounded-lg overflow-hidden bg-gray-800 border-2 border-cyan-500/30">
-            {/* Replace the div below with your actual image once you have it */}
-            <div className="w-full h-full flex items-center justify-center text-gray-400">
-              Add your photo here
-            </div>
-            {/* Uncomment and modify this when you have your image
+        <div className="relative max-w-sm mx-auto w-1/2">
+          <div className="aspect-w-4 aspect-h-5 rounded-lg overflow-hidden bg-gray-800 border-2 border-cyan-500/30">
             <img
               src={profilePhoto}
-              alt="Your Name"
-              className="w-full h-full object-cover"
+              alt="Ali Ajib"
+              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
             />
-            */}
           </div>
         </div>
 
