@@ -8,13 +8,12 @@ export default {
     extend: {
       animation: {
         'fade-in-down': 'fadeInDown 1s ease-out',
-        'fade-in': 'fadeIn 1.5s ease-out',
+        'fade-in': 'fadeIn 1.5s ease-in forwards',
         'pulse-glow': 'pulseGlow 2s infinite',
       },
       keyframes: {
         fadeInDown: {
           '0%': { opacity: '0', transform: 'translateY(-20px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
         },
         fadeIn: {
           '0%': { opacity: '0' },
