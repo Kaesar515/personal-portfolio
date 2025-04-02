@@ -3,31 +3,60 @@ import profilePhoto from '../../assets/images/profile/profile-photo.jpg';
 
 const AboutPage = () => {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        {/* Image section */}
-        <div className="relative max-w-sm mx-auto w-1/2">
-          <div className="aspect-w-4 aspect-h-5 rounded-lg overflow-hidden bg-gray-800 border-2 border-cyan-500/30">
-            <img
-              src={profilePhoto}
-              alt="Ali Ajib"
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-            />
+    <div className="min-h-screen py-16 sm:py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          {/* Image Section */}
+          <div className="flex justify-center">
+            <div className="w-[60%] aspect-w-4 aspect-h-5 rounded-lg overflow-hidden shadow-xl bg-gray-900/50 backdrop-blur-sm border border-gray-800">
+              <img
+                src={profilePhoto}
+                alt="Ali Ajib"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+              />
+            </div>
           </div>
-        </div>
 
-        {/* Content section */}
-        <div className="space-y-6">
-          <h1 className="text-4xl font-bold text-white">
-            About <span className="text-cyan-400">Me</span>
-          </h1>
-          <p className="text-gray-300 text-lg">
-            Your introduction goes here. Write about your background, interests, and what drives you in the field of IT and development.
-          </p>
-          <div className="space-y-4">
-            <h2 className="text-2xl font-semibold text-white">Education</h2>
-            <div className="text-gray-300">
-              <p>Your education details go here</p>
+          {/* Content Section */}
+          <div className="space-y-8">
+            <h1 className="text-4xl md:text-5xl font-bold">
+              <span className="text-white">About </span>
+              <span className="text-[#00e1ff]">Me</span>
+            </h1>
+
+            <div className="prose prose-lg text-gray-200 max-w-none">
+              <p className="mb-6">
+                I am a passionate IT student with a deep interest in software development
+                and modern web technologies. My journey in tech is driven by a desire
+                to create innovative solutions that make a difference.
+              </p>
+            </div>
+
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-white">Education</h2>
+              <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 border border-gray-800">
+                <h3 className="text-xl font-semibold text-[#00e1ff]">
+                  IT and Computer Science
+                </h3>
+                <p className="text-gray-300 mt-2">
+                  Currently pursuing my degree with a focus on software development
+                  and web technologies.
+                </p>
+              </div>
+            </div>
+
+            <div className="space-y-6">
+              <h2 className="text-2xl font-bold text-white">Skills</h2>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                {['React', 'JavaScript', 'HTML/CSS', 'Node.js', 'Git', 'Tailwind CSS'].map((skill) => (
+                  <div
+                    key={skill}
+                    className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-4 border border-gray-800 text-center hover:border-[#00e1ff] transition-colors duration-300"
+                  >
+                    <span className="text-gray-200">{skill}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
