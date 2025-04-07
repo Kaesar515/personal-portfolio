@@ -4,6 +4,7 @@ import Footer from './components/layout/Footer';
 import HomePage from './components/home/HomePage';
 import AboutPage from './components/about/AboutPage';
 import ProjectsPage from './components/projects/ProjectsPage';
+import ProjectDetailPage from './components/projects/ProjectDetailPage';
 import ContactPage from './components/contact/ContactPage';
 import NetworkBackground from './components/layout/background/InteractiveNetwork';
 import './App.css';
@@ -22,6 +23,7 @@ function App() {
               <Route path="/" element={<HomePage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/projects" element={<ProjectsPage />} />
+              <Route path="/projects/:slug" element={<ProjectDetailPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="*" element={<div className="text-center py-20 text-white">Page not found!</div>} />
             </Routes>

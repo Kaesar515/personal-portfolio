@@ -1,1 +1,46 @@
 /* Custom styles beyond Tailwind will go here */
+
+/* --- Custom Scrollbar (Dark Theme v7 - Root Background Attempt) --- */
+
+/* Ensure root elements have solid background */
+html, body {
+  background-color: #000; /* Explicit black */
+}
+
+/* Firefox base */
+html { 
+  scroll-behavior: smooth;
+}
+body {
+  scrollbar-width: thin; /* Using thin for potentially better consistency */
+  /* thumb color, track color */
+  scrollbar-color: #111 #333; /* Solid Black thumb, Solid Dark Gray track */
+}
+
+/* Webkit base */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+  background-color: #333; /* Dark Gray background ON THE SCROLLBAR ELEMENT */
+  border-radius: 10px; /* Rounded corners ON THE SCROLLBAR ELEMENT */
+}
+
+::-webkit-scrollbar-track {
+  background: transparent; /* Track is invisible */
+  border-radius: 10px; /* Keep radius for consistency */
+  margin: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #111; /* Solid Black thumb */
+  border-radius: 10px; /* Match rounding */
+  /* Removed box-shadow and border */
+  transition: background-color 0.2s ease-out;
+}
+
+/* Subtle hover effect for the thumb */
+::-webkit-scrollbar-thumb:hover {
+  background: #222; /* Slightly lighter solid black on hover */
+}
+
+/* Removed the unused .custom-scrollbar section */
