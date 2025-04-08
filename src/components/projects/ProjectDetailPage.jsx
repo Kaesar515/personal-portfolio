@@ -5,32 +5,31 @@ import { useParams, Link } from 'react-router-dom';
 const projectsData = {
   'personal-portfolio': {
     title: "Personal Portfolio",
-    description: "A modern portfolio website built with React, featuring clean design, smooth animations, and an interactive network background.",
+    description: "A self-initiated portfolio project developed from scratch using web technologies, demonstrating problem-solving skills and programming expertise in both Linux and Windows environments.",
     longDescription: `
-      This portfolio website showcases my work and skills as a developer. Built with modern web technologies,
-      it features a clean, minimalist design with smooth animations and an interactive network background.
+      <span class="font-bold">Role:</span> Full-Stack Developer | Self-Initiated Project
       
-      Key Features:
-      • Interactive network background with dynamic node connections
-      • Responsive design that works on all devices
-      • Modern UI with smooth transitions and animations
-      • Project showcase with detailed project information
-      • Contact form for easy communication
+      This personal portfolio was fully developed by me using web technologies and my practical experience with Linux and Windows environments. I didn't rely on external templates or frameworks — instead, I used logical thinking, problem-solving skills, and common sense shaped by my background in programming (C and Python) to design and implement every part of this website. I also made use of AI-assisted tools such as Vibe Coding and Gemini for suggestions, debugging, and productivity boosts.
+
+      <span class="text-[#00e1ff] hover:text-[#00f2ff] transition-colors duration-300 cursor-pointer">View the code → <svg class="inline-block w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.137 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z" clip-rule="evenodd" /></svg></span>
     `,
-    technologies: ["React", "Tailwind CSS", "Vite"],
+    technologies: ["React.js", "Vite", "Tailwind CSS", "HTML5", "CSS3", "JavaScript", "Canvas API", "Git"],
+    tools: ["VS Code", "Linux", "Windows", "Cursor", "mobile development environment", "Gemini AI API"],
     images: [], // We can add images later
     githubUrl: "", // To be added later
     features: [
-      "Interactive Network Background",
-      "Responsive Design",
-      "Modern UI/UX",
-      "Project Showcase",
-      "Contact Form"
+      "Developed the site structure using <span class='font-bold'>HTML5</span> and <span class='font-bold'>React.js</span>, styled with <span class='font-bold'>Tailwind CSS</span>, and built with <span class='font-bold'>Vite</span>.",
+      "Designed and implemented an <span class='font-bold'>interactive canvas-based background</span> with dynamic nodes responsive to user interaction.",
+      "Applied knowledge of <span class='font-bold'>DOM manipulation</span>, <span class='font-bold'>event handling</span>, and the <span class='font-bold'>Canvas API</span> to create smooth animations.",
+      "Built a fully <span class='font-bold'>responsive design</span> from scratch using mobile-first principles, flexible grids, and smooth UI/UX transitions, inspired by neural network structures.",
+      "Developed all features independently while managing the development environment on both <span class='font-bold'>Linux</span> and <span class='font-bold'>Windows</span>.",
+      "Used <span class='font-bold'>Git</span> for version control and consistent project tracking.",
+      "Applied structured logic and reasoning, inspired by my programming background, to organize the code and solve implementation challenges."
     ],
     challenges: [
-      "Implementing complex canvas animations",
-      "Optimizing performance for smooth interactions",
-      "Creating a responsive and accessible design"
+      "Made <span class='font-bold'>complex canvas animations</span> run smoothly across both desktop and mobile devices.",
+      "Achieved a <span class='font-bold'>responsive and accessible design</span> with intuitive user interaction.",
+      "Optimized <span class='font-bold'>performance and rendering</span> using <span class='text-[#00e1ff]'>requestAnimationFrame</span> and efficient asset handling."
     ]
   }
   // Add more projects here
@@ -134,15 +133,50 @@ const ProjectDetailPage = () => {
         {/* Project Description - Wrapped */}
         <div className="bg-gray-900/50 backdrop-blur rounded-lg p-6 border border-gray-800 mb-8">
           <div className="prose prose-invert max-w-none">
-            <div className="whitespace-pre-line text-gray-300">
-              {project.longDescription}
+            <div className="whitespace-pre-line text-gray-300" dangerouslySetInnerHTML={{ __html: project.longDescription }}>
             </div>
+          </div>
+        </div>
+
+        {/* Key Features - Add shadow to h2 */}
+        <div className="mb-12"> {/* Keep outer spacing div */}
+          <h2 className="text-2xl font-bold text-white mb-4 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">What I Did</h2>
+          {/* Box applied only to the list wrapper */}
+          <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 border border-gray-800">
+            <ul className="space-y-2">
+              {project.features.map((feature, index) => (
+                <li key={index} className="flex items-start text-gray-300">
+                  <svg className="w-6 h-6 text-[#00e1ff] mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span dangerouslySetInnerHTML={{ __html: feature }} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        {/* Challenges & Solutions - Add shadow to h2 */}
+        <div className="mb-12"> {/* Keep outer spacing div */}
+          <h2 className="text-2xl font-bold text-white mb-4 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">Challenges I Solved</h2>
+           {/* Box applied only to the list wrapper */}
+          <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 border border-gray-800">
+            <ul className="space-y-2">
+              {project.challenges.map((challenge, index) => (
+                <li key={index} className="flex items-start text-gray-300">
+                  <svg className="w-6 h-6 text-[#00e1ff] mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  <span dangerouslySetInnerHTML={{ __html: challenge }} />
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
 
         {/* Technologies - Add shadow to h2 */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold text-white mb-4 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">Technologies Used</h2>
+          <h2 className="text-2xl font-bold text-white mb-4 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">Tech Used</h2>
           {/* Use grid layout */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {project.technologies.map((tech) => (
@@ -157,40 +191,30 @@ const ProjectDetailPage = () => {
           </div>
         </div>
 
-        {/* Key Features - Add shadow to h2 */}
-        <div className="mb-12"> {/* Keep outer spacing div */}
-          <h2 className="text-2xl font-bold text-white mb-4 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">Key Features</h2>
-          {/* Box applied only to the list wrapper */}
-          <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 border border-gray-800">
-            <ul className="space-y-2">
-              {project.features.map((feature, index) => (
-                <li key={index} className="flex items-start text-gray-300">
-                  <svg className="w-6 h-6 text-[#00e1ff] mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                  </svg>
-                  {feature}
-                </li>
-              ))}
-            </ul>
+        {/* Tools & OS Section */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-white mb-4 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">Tool Used</h2>
+          {/* Use grid layout */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+            {project.tools.map((tool) => (
+              /* Use div with skill box styling */
+              <div
+                key={tool}
+                className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-4 border border-gray-800 text-center hover:border-[#00e1ff] transition-colors duration-300"
+              >
+                <span className="text-gray-200">{tool}</span>
+              </div>
+            ))}
           </div>
         </div>
 
-        {/* Challenges & Solutions - Add shadow to h2 */}
-        <div className="mb-12"> {/* Keep outer spacing div */}
-          <h2 className="text-2xl font-bold text-white mb-4 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">Challenges Overcome</h2>
-           {/* Box applied only to the list wrapper */}
-          <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 border border-gray-800">
-            <ul className="space-y-2">
-              {project.challenges.map((challenge, index) => (
-                <li key={index} className="flex items-start text-gray-300">
-                  <svg className="w-6 h-6 text-[#00e1ff] mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  {challenge}
-                </li>
-              ))}
-            </ul>
-          </div>
+        {/* View the code section */}
+        <div className="flex justify-center mb-12">
+          <span className="text-[#00e1ff] hover:text-[#00f2ff] transition-colors duration-300 cursor-pointer text-lg [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">
+            View the code → <svg className="inline-block w-6 h-6 ml-1" fill="currentColor" viewBox="0 0 24 24">
+              <path fillRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.137 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z" clipRule="evenodd" />
+            </svg>
+          </span>
         </div>
 
         {/* GitHub Link */}
