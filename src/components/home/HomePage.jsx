@@ -1,9 +1,24 @@
 import { Link } from 'react-router-dom';
 import profilePhoto from '../../assets/images/profile/profile-photo.jpg';
+import AboutPage from '../about/AboutPage';
+import ProjectsPage from '../projects/ProjectsPage';
+import ContactPage from '../contact/ContactPage';
+
+// Helper component for styled scroll buttons
+const ScrollLinkButton = ({ href, children }) => {
+  // Using styles adapted from the original primary action buttons
+  const buttonClasses = "group relative px-8 py-3 text-lg font-semibold rounded-md text-black bg-[#00e1ff] hover:bg-[#00f2ff] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-gray-900 shadow-[0_8px_16px_rgba(0,225,255,0.3),0_3px_6px_rgba(0,225,255,0.4)] transition-all duration-300 hover:shadow-[0_12px_24px_rgba(0,225,255,0.4),0_6px_12px_rgba(0,225,255,0.6)] -translate-y-0.5 hover:-translate-y-1 active:translate-y-0 before:absolute before:inset-0 before:rounded-md before:bg-[#00e1ff] before:transition-opacity before:duration-300 before:opacity-0 hover:before:opacity-20 before:-z-10 before:blur-xl";
+
+  return (
+    <a href={href} className={buttonClasses}>
+      <span className="relative z-10">{children}</span>
+    </a>
+  );
+};
 
 const HomePage = () => {
   return (
-    <div className="min-h-screen">
+    <div className="">
       <div className="min-h-screen flex items-center justify-center">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
@@ -28,30 +43,32 @@ const HomePage = () => {
                   />
                 </div>
                 <div className="flex flex-wrap justify-center gap-4">
-                  <Link
-                    to="/projects"
-                    className="group relative px-8 py-3 text-lg font-semibold rounded-md text-black bg-[#00e1ff] hover:bg-[#00f2ff] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-gray-900 shadow-[0_8px_16px_rgba(0,225,255,0.3),0_3px_6px_rgba(0,225,255,0.4)] transition-all duration-300 hover:shadow-[0_12px_24px_rgba(0,225,255,0.4),0_6px_12px_rgba(0,225,255,0.6)] -translate-y-0.5 hover:-translate-y-1 active:translate-y-0 before:absolute before:inset-0 before:rounded-md before:bg-[#00e1ff] before:transition-opacity before:duration-300 before:opacity-0 hover:before:opacity-20 before:-z-10 before:blur-xl"
-                  >
-                    <span className="relative z-10">View Projects</span>
-                  </Link>
-                  <Link
-                    to="/about"
-                    className="group relative px-8 py-3 text-lg font-semibold rounded-md text-white bg-gray-800 hover:bg-gray-700 border-2 border-[#00e1ff]/50 hover:border-[#00e1ff] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all duration-300 backdrop-blur-sm shadow-[0_8px_16px_rgba(0,225,255,0.1),0_3px_6px_rgba(0,225,255,0.2)] hover:shadow-[0_12px_24px_rgba(0,225,255,0.2),0_6px_12px_rgba(0,225,255,0.3)] -translate-y-0.5 hover:-translate-y-1 active:translate-y-0 before:absolute before:inset-0 before:rounded-md before:bg-[#00e1ff] before:transition-opacity before:duration-300 before:opacity-0 hover:before:opacity-5 before:-z-10 before:blur-xl"
-                  >
-                    <span className="relative z-10">Learn More</span>
-                  </Link>
-                  <Link
-                    to="/contact"
-                    className="group relative px-8 py-3 text-lg font-semibold rounded-md text-black bg-[#00e1ff] hover:bg-[#00f2ff] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-gray-900 shadow-[0_8px_16px_rgba(0,225,255,0.3),0_3px_6px_rgba(0,225,255,0.4)] transition-all duration-300 hover:shadow-[0_12px_24px_rgba(0,225,255,0.4),0_6px_12px_rgba(0,225,255,0.6)] -translate-y-0.5 hover:-translate-y-1 active:translate-y-0 before:absolute before:inset-0 before:rounded-md before:bg-[#00e1ff] before:transition-opacity before:duration-300 before:opacity-0 hover:before:opacity-20 before:-z-10 before:blur-xl"
-                  >
-                    <span className="relative z-10">Get in Touch</span>
-                  </Link>
+                    <ScrollLinkButton href="/#projects">View Projects</ScrollLinkButton>
+                    <a
+                      href="/#about"
+                      className="group relative px-8 py-3 text-lg font-semibold rounded-md text-white bg-gray-800 hover:bg-gray-700 border-2 border-[#00e1ff]/50 hover:border-[#00e1ff] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all duration-300 backdrop-blur-sm shadow-[0_8px_16px_rgba(0,225,255,0.1),0_3px_6px_rgba(0,225,255,0.2)] hover:shadow-[0_12px_24px_rgba(0,225,255,0.2),0_6px_12px_rgba(0,225,255,0.3)] -translate-y-0.5 hover:-translate-y-1 active:translate-y-0 before:absolute before:inset-0 before:rounded-md before:bg-[#00e1ff] before:transition-opacity before:duration-300 before:opacity-0 hover:before:opacity-5 before:-z-10 before:blur-xl"
+                    >
+                      <span className="relative z-10">Learn More</span>
+                    </a>
+                    <ScrollLinkButton href="/#contact">Get in Touch</ScrollLinkButton>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
+
+      <section id="about" className="py-16 md:py-24 bg-gray-900/50 backdrop-blur-sm">
+        <AboutPage />
+      </section>
+
+      <section id="projects" className="py-16 md:py-24">
+        <ProjectsPage />
+      </section>
+
+      <section id="contact" className="py-16 md:py-24 bg-gray-900/50 backdrop-blur-sm">
+        <ContactPage />
+      </section>
     </div>
   );
 };

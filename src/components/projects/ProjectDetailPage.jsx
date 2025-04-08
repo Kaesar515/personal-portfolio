@@ -80,8 +80,8 @@ const ProjectDetailPage = () => {
           Back to Projects
         </Link>
 
-        {/* Project Title */}
-        <h1 className="text-4xl md:text-5xl font-bold mb-6 text-white">{project.title}</h1>
+        {/* Project Title - UNWRAPPED */}
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-8">{project.title}</h1>
 
         {/* Image Gallery */}
         {project.images && project.images.length > 0 && (
@@ -125,56 +125,66 @@ const ProjectDetailPage = () => {
           </div>
         )}
 
-        {/* Project Description */}
-        <div className="prose prose-invert max-w-none mb-12">
-          <div className="whitespace-pre-line text-gray-300">
-            {project.longDescription}
+        {/* Project Description - Wrapped */}
+        <div className="bg-gray-900/50 backdrop-blur rounded-lg p-6 border border-gray-800 mb-8">
+          <div className="prose prose-invert max-w-none">
+            <div className="whitespace-pre-line text-gray-300">
+              {project.longDescription}
+            </div>
           </div>
         </div>
 
-        {/* Technologies */}
+        {/* Technologies - UNWRAPPED outer box, individual techs still styled */}
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-white mb-4">Technologies Used</h2>
-          <div className="flex flex-wrap gap-2">
+          {/* Use grid layout */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {project.technologies.map((tech) => (
-              <span
+              /* Use div with skill box styling */
+              <div
                 key={tech}
-                className="px-4 py-2 text-sm text-[#00e1ff] bg-[#00e1ff]/10 rounded-full"
+                className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-4 border border-gray-800 text-center hover:border-[#00e1ff] transition-colors duration-300"
               >
-                {tech}
-              </span>
+                <span className="text-gray-200">{tech}</span>
+              </div>
             ))}
           </div>
         </div>
 
-        {/* Key Features */}
-        <div className="mb-12">
+        {/* Key Features - Title outside, list inside box */}
+        <div className="mb-12"> {/* Keep outer spacing div */}
           <h2 className="text-2xl font-bold text-white mb-4">Key Features</h2>
-          <ul className="space-y-2">
-            {project.features.map((feature, index) => (
-              <li key={index} className="flex items-start text-gray-300">
-                <svg className="w-6 h-6 text-[#00e1ff] mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                </svg>
-                {feature}
-              </li>
-            ))}
-          </ul>
+          {/* Box applied only to the list wrapper */}
+          <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 border border-gray-800">
+            <ul className="space-y-2">
+              {project.features.map((feature, index) => (
+                <li key={index} className="flex items-start text-gray-300">
+                  <svg className="w-6 h-6 text-[#00e1ff] mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                  </svg>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
-        {/* Challenges & Solutions */}
-        <div className="mb-12">
+        {/* Challenges & Solutions - Title outside, list inside box */}
+        <div className="mb-12"> {/* Keep outer spacing div */}
           <h2 className="text-2xl font-bold text-white mb-4">Challenges Overcome</h2>
-          <ul className="space-y-2">
-            {project.challenges.map((challenge, index) => (
-              <li key={index} className="flex items-start text-gray-300">
-                <svg className="w-6 h-6 text-[#00e1ff] mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
-                {challenge}
-              </li>
-            ))}
-          </ul>
+           {/* Box applied only to the list wrapper */}
+          <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 border border-gray-800">
+            <ul className="space-y-2">
+              {project.challenges.map((challenge, index) => (
+                <li key={index} className="flex items-start text-gray-300">
+                  <svg className="w-6 h-6 text-[#00e1ff] mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  {challenge}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
 
         {/* GitHub Link */}

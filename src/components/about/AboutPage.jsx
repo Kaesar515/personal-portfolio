@@ -25,11 +25,13 @@ const AboutPage = () => {
             </h1>
 
             <div className="prose prose-lg text-gray-200 max-w-none">
-              <p className="mb-6">
-                I am a passionate IT student with a deep interest in software development
-                and modern web technologies. My journey in tech is driven by a desire
-                to create innovative solutions that make a difference.
-              </p>
+              <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 border border-gray-800">
+                <p className="">
+                  I am a passionate IT student with a deep interest in software development
+                  and modern web technologies. My journey in tech is driven by a desire
+                  to create innovative solutions that make a difference.
+                </p>
+              </div>
             </div>
 
             <div className="space-y-6">

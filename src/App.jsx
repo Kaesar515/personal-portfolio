@@ -21,10 +21,10 @@ function App() {
           <main className="flex-grow">
             <Routes>
               <Route path="/" element={<HomePage />} />
-              <Route path="/about" element={<AboutPage />} />
-              <Route path="/projects" element={<ProjectsPage />} />
+              {/* <Route path="/about" element={<AboutPage />} /> */}
+              {/* <Route path="/projects" element={<ProjectsPage />} /> */}
               <Route path="/projects/:slug" element={<ProjectDetailPage />} />
-              <Route path="/contact" element={<ContactPage />} />
+              {/* <Route path="/contact" element={<ContactPage />} /> */}
               <Route path="*" element={<div className="text-center py-20 text-white">Page not found!</div>} />
             </Routes>
           </main>
