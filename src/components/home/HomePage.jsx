@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import profilePhoto from '../../assets/images/profile/profile-photo.jpg';
+import profilePhoto from '../../assets/images/profile/barphoto.jpg';
 import AboutPage from '../about/AboutPage';
 import ProjectsPage from '../projects/ProjectsPage';
 import ContactPage from '../contact/ContactPage';
@@ -23,7 +23,7 @@ const HomePage = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <div className="animate-fade-in-down">
-              <h1 className="text-5xl md:text-7xl font-bold mb-4">
+              <h1 className="text-5xl md:text-7xl font-bold mb-4 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">
                 <span className="text-white">
                   Hi, I'm{" "}
                 </span>
@@ -31,7 +31,7 @@ const HomePage = () => {
                   Ali Ajib
                 </span>
               </h1>
-              <p className="text-xl md:text-2xl text-gray-300 mb-8">
+              <p className="text-xl md:text-2xl text-gray-300 mb-8 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">
                 IT Student & Future Developer
               </p>
               <div className="flex flex-col items-center justify-center gap-8 mt-8">
@@ -58,15 +58,33 @@ const HomePage = () => {
         </div>
       </div>
 
-      <section id="about" className="py-16 md:py-24 bg-gray-900/50 backdrop-blur-sm">
+      {/* Separator Line - Adjusted for mobile (35% shorter) */}
+      <div className="h-1.5 w-40 sm:w-64 mx-auto my-4 bg-[#00e1ff]/60 rounded-full shadow-md shadow-[#00e1ff]/40"></div>
+
+      <section 
+        id="about" 
+        className="py-4 md:py-8"
+      >
         <AboutPage />
       </section>
 
-      <section id="projects" className="py-16 md:py-24">
+      {/* Separator Line - Adjusted for mobile (35% shorter) */}
+      <div className="h-1.5 w-40 sm:w-64 mx-auto my-4 bg-[#00e1ff]/60 rounded-full shadow-md shadow-[#00e1ff]/40"></div>
+
+      <section 
+        id="projects" 
+        className="py-4 md:py-8"
+      >
         <ProjectsPage />
       </section>
 
-      <section id="contact" className="py-16 md:py-24 bg-gray-900/50 backdrop-blur-sm">
+      {/* Separator Line - Adjusted for mobile (35% shorter) */}
+      <div className="h-1.5 w-40 sm:w-64 mx-auto my-4 bg-[#00e1ff]/60 rounded-full shadow-md shadow-[#00e1ff]/40"></div>
+
+      <section 
+        id="contact" 
+        className="py-4 md:py-8"
+      >
         <ContactPage />
       </section>
     </div>

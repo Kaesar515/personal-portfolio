@@ -6,6 +6,7 @@ const PERIODIC_PULSE_MAX_RADIUS = 120;
 const PERIODIC_PULSE_EXPANSION_SPEED = 1.0;
 const PERIODIC_PULSE_LINE_WIDTH = 3;
 const PERIODIC_PULSE_COLOR_ALPHA = 0.6;
+const WAVE_AMPLITUDE = 5; // Moved outside useEffect
 
 function InteractiveNetwork() {
   console.log("InteractiveNetwork component function start"); // Log component start
@@ -18,6 +19,7 @@ function InteractiveNetwork() {
   const hoveredNodeId = useRef(null); // Use ref to track the currently hovered node ID
   const hoveredLineId = useRef(null); // Use ref to track the currently hovered line
   const neighborMap = useRef(new Map()); // Use ref to store neighbor lists for each node
+  const forceResetHighlightNodeId = useRef(null); // Ref to signal forced reset
 
   // Memoize the resize handler to avoid recreating it on every render
   const handleResize = useCallback(() => {
@@ -52,17 +54,21 @@ function InteractiveNetwork() {
     // Initial setup
     handleResize(); // Set initial size
 
+    // --- Dynamically set node count based on screen width ---
+    const screenWidth = window.innerWidth; 
+    const dynamicNodes = screenWidth < 768 ? 20 : 70; // Less nodes on small screens
+    // --- END: Dynamic node count ---
+
     // ===============================================
-    // CONFIGURABLE PARAMETERS (Keep as is)
+    // CONFIGURABLE PARAMETERS
     // ===============================================
-    const NODES = 70; // total nodes
-    const MIN_NODE_DISTANCE = 90; // enforce at least 60px between any two nodes
+    // const NODES = 70; // total nodes - Commented out, using dynamicNodes now
+    const MIN_NODE_DISTANCE = 90; 
     const CONNECTION_RADIUS = 200;
     const LIGHTNING_INTERVAL = 2000; // Lowered from 10000ms (6 seconds)
     const LIGHTNING_SEGMENTS = 8; // Base segments, actual calculation is dynamic
     const MAX_LIGHTNING_DISTANCE = 250; // Max distance for lightning connection
     const LIGHTNING_FADE_SPEED = 0.03; // Increased from 0.01 (faster fade)
-    const WAVE_AMPLITUDE = 5;
     const WAVE_SPEED = 0.015; // Increased from 0.01 (faster node oscillation)
     const NODE_HOVER_RADIUS = 60; // Increased radius for spotlight effect
     const LINE_HOVER_RADIUS = 30; // Increased radius for spotlight effect
@@ -72,7 +78,6 @@ function InteractiveNetwork() {
     const PULSE_EXPANSION_SPEED = 1.5; // How fast the pulse radius grows
     const PULSE_LINE_WIDTH = 2;
     const PULSE_COLOR_ALPHA = 0.8; // Initial alpha of the pulse
-    const HIGHLIGHT_EASING_FACTOR = 0.15; // How fast the highlight fades in/out (0 to 1)
 
     // Reset refs used within setup/draw
     nodes.current = [];
@@ -86,14 +91,15 @@ function InteractiveNetwork() {
     }
 
     // ===============================================
-    // NODE SETUP (adapt to use nodes.current)
+    // NODE SETUP (uses dynamicNodes)
     // ===============================================
     function setupNodes() {
-        nodes.current = []; // Clear existing nodes before setup
+        nodes.current = []; 
         const width = networkCanvasRef.current?.width ?? window.innerWidth;
         const height = networkCanvasRef.current?.height ?? window.innerHeight;
 
-        for (let i = 0; i < NODES; i++) {
+        // Use dynamicNodes in the loop condition
+        for (let i = 0; i < dynamicNodes; i++) { 
           let x, y;
           let attempts = 0;
           let placed = false;
@@ -103,7 +109,7 @@ function InteractiveNetwork() {
             y = Math.random() * height;
 
             let tooClose = false;
-            for (const node of nodes.current) { // Use nodes.current
+            for (const node of nodes.current) { 
               if (dist(x, y, node.baseX, node.baseY) < MIN_NODE_DISTANCE) {
                 tooClose = true;
                 break;
@@ -111,13 +117,12 @@ function InteractiveNetwork() {
             }
 
             if (!tooClose) {
-              // Add node with its index as id
               nodes.current.push({ 
                 baseX: x, 
                 baseY: y, 
                 id: i,
-                highlightIntensity: 0 // Initialize highlight state
-              }); // Use nodes.current
+                highlightIntensity: 0 
+              });
               placed = true;
             }
             attempts++;
@@ -125,10 +130,9 @@ function InteractiveNetwork() {
 
           if (!placed) {
             console.warn(`Could not place node #${i + 1}; stopping early at ${nodes.current.length} nodes.`);
-            break; // Stop trying to add nodes if placement fails repeatedly
+            break; 
           }
         }
-        // Pre-calculate neighbors after nodes are placed
         calculateNeighbors();
     }
 
@@ -202,14 +206,58 @@ function InteractiveNetwork() {
     const lightningTimer = setInterval(spawnEnergyLine, LIGHTNING_INTERVAL);
 
     // ===============================================
-    // MOUSE HANDLING (adapt to use mouse.current)
+    // MOUSE HANDLING (Keep existing)
     // ===============================================
     function handleMouseMove(e) {
       mouse.current.x = e.clientX;
       mouse.current.y = e.clientY;
     }
-    // Add listener to window for broader capture, might help if canvas is partially obscured
     window.addEventListener('mousemove', handleMouseMove);
+
+    // ===============================================
+    // TOUCH HANDLING
+    // ===============================================
+    function handleTouchStart(e) {
+      // Set initial position on touch start
+      if (e.touches.length > 0) {
+        mouse.current.x = e.touches[0].clientX;
+        mouse.current.y = e.touches[0].clientY;
+      }
+    }
+
+    function handleTouchMove(e) {
+      if (e.touches.length > 0) {
+        mouse.current.x = e.touches[0].clientX;
+        mouse.current.y = e.touches[0].clientY;
+      }
+    }
+
+    function handleTouchEnd(e) {
+      // Capture the last hovered node ID *before* clearing (optional, maybe not needed now)
+      // const lastHoveredNodeId = hoveredNodeId.current;
+
+      // Clear position and current hover state
+      mouse.current.x = null;
+      mouse.current.y = null;
+      hoveredNodeId.current = null;
+      hoveredLineId.current = null;
+
+      // Remove the force reset mechanism - let the draw loop handle it based on cleared state
+      /*
+      if (lastHoveredNodeId !== null) {
+        console.log(`TouchEnd: Signaling reset for node ${lastHoveredNodeId}`); // DEBUG LOG
+        forceResetHighlightNodeId.current = lastHoveredNodeId;
+      }
+      */
+      console.log("TouchEnd: Cleared mouse/hover state."); // Add a log to confirm state clearing
+    }
+
+    // Add touch listeners to the window
+    const canvasElement = networkCanvasRef.current;
+    window.addEventListener('touchstart', handleTouchStart, { passive: true }); 
+    window.addEventListener('touchmove', handleTouchMove, { passive: true }); // Restore passive: true
+    window.addEventListener('touchend', handleTouchEnd);
+    window.addEventListener('touchcancel', handleTouchEnd);
 
     // Helper function to calculate path length
     function getPathLength(path) {
@@ -296,24 +344,27 @@ function InteractiveNetwork() {
 
         // --- Update Node Highlight Intensity ---
         for (const node of nodes.current) {
-            let targetIntensity = 0;
-            if (node.id === hoveredNodeId.current) {
-                targetIntensity = 2;
-            } else if (neighborSet.has(node.id)) {
-                targetIntensity = 0.35;
-            } else if (hoveredLineId.current) {
-                // If a line is hovered, check if this node is part of that line
-                const [fromId, toId] = hoveredLineId.current.split('-').map(Number);
-                if (node.id === fromId || node.id === toId) {
-                    targetIntensity = 0.8; // Highlight nodes connected by hovered line
+            // Check if this node needs an immediate highlight reset
+            if (node.id === forceResetHighlightNodeId.current) {
+                node.highlightIntensity = 0;
+                forceResetHighlightNodeId.current = null; // Reset the flag
+            } else {
+                // --- Simplified Direct Setting (No Easing) ---
+                let targetIntensity = 0;
+                if (node.id === hoveredNodeId.current) {
+                    targetIntensity = 1; 
+                } else if (neighborSet.has(node.id)) {
+                    targetIntensity = 0.35;
+                } else if (hoveredLineId.current) {
+                    const [fromId, toId] = hoveredLineId.current.split('-').map(Number);
+                    if (node.id === fromId || node.id === toId) {
+                        targetIntensity = 0.8; 
+                    }
                 }
+                // Directly set the intensity without easing
+                node.highlightIntensity = targetIntensity; 
+                // --- End Simplified Direct Setting ---
             }
-            // Smoothly animate intensity towards target ("swing")
-            // Add checks for validity and clamp the value
-            const currentIntensity = typeof node.highlightIntensity === 'number' && !isNaN(node.highlightIntensity) ? node.highlightIntensity : 0;
-            const intensityDiff = targetIntensity - currentIntensity;
-            let newIntensity = currentIntensity + intensityDiff * HIGHLIGHT_EASING_FACTOR;
-            node.highlightIntensity = Math.max(0, Math.min(1, newIntensity)); // Clamp between 0 and 1
         }
 
         // --- PASS 1: Draw Connections (Lines) --- (Apply highlight)
@@ -441,6 +492,9 @@ function InteractiveNetwork() {
           */
           // --- Apply Node Highlight ---
           const nodeHighlightIntensity = node.highlightIntensity || 0; // Default to 0 if invalid
+          if (nodeHighlightIntensity > 0.01) { // Log intensity just before drawing if > 0.01
+             console.log(`Draw Node ${node.id}: highlightIntensity = ${nodeHighlightIntensity}`); // DEBUG LOG 2
+          }
           const baseNodeRadius = 6;
           const nodeRadius = baseNodeRadius + (baseNodeRadius * 0.5 * nodeHighlightIntensity); // Node scales up slightly
           const nodeShadowBlur = 20 * nodeHighlightIntensity;
@@ -616,8 +670,15 @@ function InteractiveNetwork() {
     return () => {
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', handleMouseMove);
+      
+      // Remove touch listeners from window on cleanup
+      window.removeEventListener('touchstart', handleTouchStart);
+      window.removeEventListener('touchmove', handleTouchMove);
+      window.removeEventListener('touchend', handleTouchEnd);
+      window.removeEventListener('touchcancel', handleTouchEnd);
+
       clearInterval(lightningTimer);
-      cancelAnimationFrame(animationFrameId); // Stop animation frame on unmount
+      cancelAnimationFrame(animationFrameId);
     };
   }, [handleResize]); // Rerun effect if handleResize changes (it won't due to useCallback)
 

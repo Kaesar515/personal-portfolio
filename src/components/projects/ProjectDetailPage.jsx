@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 
 // This will be replaced with actual project data from a database or CMS later
@@ -42,6 +42,11 @@ const ProjectDetailPage = () => {
   
   const project = projectsData[slug];
   
+  // Add useEffect to scroll to top on component mount/slug change
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [slug]); // Dependency array ensures it runs when slug changes
+  
   if (!project) {
     return (
       <div className="min-h-screen py-16 flex items-center justify-center custom-scrollbar">
@@ -69,22 +74,23 @@ const ProjectDetailPage = () => {
   return (
     <div className="min-h-screen py-16 sm:py-24 custom-scrollbar">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Back to Projects Link */}
-        <Link 
-          to="/projects"
-          className="inline-flex items-center text-[#00e1ff] hover:text-[#00f2ff] transition-colors duration-300 mb-8"
+        {/* Back Button - Changed from Link, added shadow and history.back() */}
+        <button 
+          type="button"
+          onClick={() => window.history.back()} 
+          className="inline-flex items-center text-[#00e1ff] hover:text-[#00f2ff] transition-colors duration-300 mb-8 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)] focus:outline-none focus:ring-2 focus:ring-cyan-500/50 rounded"
         >
           <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-          Back to Projects
-        </Link>
+          Back
+        </button>
 
-        {/* Project Title - UNWRAPPED */}
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-8">{project.title}</h1>
+        {/* Project Title - Update to even stronger shadow */}
+        <h1 className="text-4xl md:text-5xl font-bold text-white mb-8 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">{project.title}</h1>
 
-        {/* Image Gallery */}
-        {project.images && project.images.length > 0 && (
+        {/* Image Gallery - Conditionally render based on slug */}
+        {slug !== 'personal-portfolio' && project.images && project.images.length > 0 && (
           <div className="relative aspect-w-16 aspect-h-9 mb-8 rounded-lg overflow-hidden">
             <img 
               src={project.images[currentImageIndex]} 
@@ -134,9 +140,9 @@ const ProjectDetailPage = () => {
           </div>
         </div>
 
-        {/* Technologies - UNWRAPPED outer box, individual techs still styled */}
+        {/* Technologies - Add shadow to h2 */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold text-white mb-4">Technologies Used</h2>
+          <h2 className="text-2xl font-bold text-white mb-4 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">Technologies Used</h2>
           {/* Use grid layout */}
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {project.technologies.map((tech) => (
@@ -151,9 +157,9 @@ const ProjectDetailPage = () => {
           </div>
         </div>
 
-        {/* Key Features - Title outside, list inside box */}
+        {/* Key Features - Add shadow to h2 */}
         <div className="mb-12"> {/* Keep outer spacing div */}
-          <h2 className="text-2xl font-bold text-white mb-4">Key Features</h2>
+          <h2 className="text-2xl font-bold text-white mb-4 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">Key Features</h2>
           {/* Box applied only to the list wrapper */}
           <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 border border-gray-800">
             <ul className="space-y-2">
@@ -169,9 +175,9 @@ const ProjectDetailPage = () => {
           </div>
         </div>
 
-        {/* Challenges & Solutions - Title outside, list inside box */}
+        {/* Challenges & Solutions - Add shadow to h2 */}
         <div className="mb-12"> {/* Keep outer spacing div */}
-          <h2 className="text-2xl font-bold text-white mb-4">Challenges Overcome</h2>
+          <h2 className="text-2xl font-bold text-white mb-4 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">Challenges Overcome</h2>
            {/* Box applied only to the list wrapper */}
           <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 border border-gray-800">
             <ul className="space-y-2">

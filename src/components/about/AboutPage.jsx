@@ -19,7 +19,7 @@ const AboutPage = () => {
 
           {/* Content Section */}
           <div className="space-y-8">
-            <h1 className="text-4xl md:text-5xl font-bold">
+            <h1 className="text-4xl md:text-5xl font-bold [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">
               <span className="text-white">About </span>
               <span className="text-[#00e1ff]">Me</span>
             </h1>
@@ -35,7 +35,7 @@ const AboutPage = () => {
             </div>
 
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-white">Education</h2>
+              <h2 className="text-2xl font-bold text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">Education</h2>
               <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 border border-gray-800">
                 <h3 className="text-xl font-semibold text-[#00e1ff]">
                   IT and Computer Science
@@ -48,7 +48,7 @@ const AboutPage = () => {
             </div>
 
             <div className="space-y-6">
-              <h2 className="text-2xl font-bold text-white">Skills</h2>
+              <h2 className="text-2xl font-bold text-white [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">Skills</h2>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                 {['React', 'JavaScript', 'HTML/CSS', 'Node.js', 'Git', 'Tailwind CSS'].map((skill) => (
                   <div

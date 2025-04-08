@@ -1,19 +1,35 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import portfolioCardImage from '../../assets/images/projects/homepp.jpg';
 
 const ProjectCard = ({ title, description, technologies, images, githubUrl, slug }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const nextImage = () => {
+  // Stop propagation helper for nested interactives
+  const stopPropagation = (e) => e.stopPropagation();
+
+  const nextImage = (e) => {
+    e.stopPropagation(); // Prevent card link navigation
     setCurrentImageIndex((prev) => (prev + 1) % images.length);
   };
 
-  const prevImage = () => {
+  const prevImage = (e) => {
+    e.stopPropagation(); // Prevent card link navigation
     setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
   };
 
+  const goToImage = (e, index) => {
+      e.stopPropagation(); // Prevent card link navigation
+      setCurrentImageIndex(index);
+  };
+
   return (
-    <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg overflow-hidden border border-gray-800 hover:border-[#00e1ff] transition-colors duration-300">
+    // Wrap the entire card content in a Link
+    <Link 
+        to={`/projects/${slug}`} 
+        className="block bg-gray-900/50 backdrop-blur-sm rounded-lg overflow-hidden border border-gray-800 hover:border-[#00e1ff] transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-transparent" // Make link block and add focus styles
+        aria-label={`View details for ${title}`}
+    >
       {/* Image Carousel - Only shown if images are provided */}
       {images && images.length > 0 && (
         <div className="relative aspect-w-16 aspect-h-9">
@@ -24,8 +40,9 @@ const ProjectCard = ({ title, description, technologies, images, githubUrl, slug
           />
           {images.length > 1 && (
             <>
+              {/* Add stopPropagation to buttons */}
               <button
-                onClick={prevImage}
+                onClick={prevImage} 
                 className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors duration-300"
                 aria-label="Previous image"
               >
@@ -46,7 +63,7 @@ const ProjectCard = ({ title, description, technologies, images, githubUrl, slug
                 {images.map((_, index) => (
                   <button
                     key={index}
-                    onClick={() => setCurrentImageIndex(index)}
+                    onClick={(e) => goToImage(e, index)} // Use updated handler
                     className={`w-2 h-2 rounded-full transition-colors duration-300 ${
                       index === currentImageIndex ? 'bg-[#00e1ff]' : 'bg-white/50'
                     }`}
@@ -60,6 +77,7 @@ const ProjectCard = ({ title, description, technologies, images, githubUrl, slug
       )}
 
       {/* Content */}
+      {/* Remove the outer div as Link now handles layout */}
       <div className="p-6 space-y-4">
         <h3 className="text-2xl font-bold text-white">{title}</h3>
         <p className="text-gray-300">{description}</p>
@@ -86,20 +104,25 @@ const ProjectCard = ({ title, description, technologies, images, githubUrl, slug
               href={githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="px-4 py-2 text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-[#00e1ff] transition-all duration-300"
+              onClick={stopPropagation} // Prevent card link navigation
+              className="px-4 py-2 text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-[#00e1ff] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:ring-offset-2 focus:ring-offset-gray-900" // Add focus styles
+              aria-label={`View code for ${title}`}
             >
               View Code
             </a>
           )}
+          {/* Re-add the Read More Link with stopPropagation */}
           <Link
             to={`/projects/${slug}`}
-            className="px-4 py-2 text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-[#00e1ff] transition-all duration-300"
-          >
-            Read More
-          </Link>
+            onClick={stopPropagation} // Prevent card link navigation
+            className="px-4 py-2 text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-[#00e1ff] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:ring-offset-2 focus:ring-offset-gray-900" // Add focus styles
+            aria-label={`Read more about ${title}`}
+           >
+             Read More
+           </Link>
         </div>
       </div>
-    </div>
+    </Link> // End of the wrapping Link
   );
 };
 
@@ -109,7 +132,7 @@ const ProjectsPage = () => {
       title: "Personal Portfolio",
       description: "A modern portfolio website built with React, featuring clean design, smooth animations, and an interactive network background.",
       technologies: ["React", "Tailwind CSS", "Vite"],
-      images: [], // We can add images later
+      images: [portfolioCardImage], // Add the imported image here
       githubUrl: "", // To be added later
       slug: "personal-portfolio"
     },
@@ -120,11 +143,11 @@ const ProjectsPage = () => {
     <div className="min-h-screen py-16 sm:py-24 custom-scrollbar">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-5xl font-bold mb-4">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">
             <span className="text-white">My </span>
             <span className="text-[#00e1ff]">Projects</span>
           </h1>
-          <p className="text-gray-300 text-lg">
+          <p className="text-gray-300 text-lg [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">
             Here are some of the projects I've worked on
           </p>
         </div>
