@@ -1,12 +1,19 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import profilePhoto from '../../assets/images/profile/barphoto.jpg';
 
 const Navbar = () => {
+  const { t, i18n } = useTranslation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
+    setIsMenuOpen(false);
   };
 
   return (
@@ -19,7 +26,7 @@ const Navbar = () => {
               <div className="h-14 w-14 rounded-full overflow-hidden border-2 border-cyan-400/30 group-hover:border-cyan-400 transition-colors duration-300">
                 <img
                   src={profilePhoto}
-                  alt="Ali Ajib"
+                  alt={t('altTexts.aliAjib')}
                   className="h-full w-full object-cover pointer-events-none"
                 />
               </div>
@@ -27,7 +34,7 @@ const Navbar = () => {
                 <div className="h-40 w-40 rounded-lg overflow-hidden border-2 border-cyan-400 shadow-lg">
                   <img
                     src={profilePhoto}
-                    alt="Ali Ajib"
+                    alt={t('altTexts.aliAjib')}
                     className="h-full w-full object-cover"
                   />
                 </div>
@@ -42,43 +49,80 @@ const Navbar = () => {
             </Link>
           </div>
           
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
-              <NavLink to="/">Home</NavLink>
-              <NavLink to="/#about">About</NavLink>
-              <NavLink to="/#projects">Projects</NavLink>
-              <NavLink to="/#contact">Contact</NavLink>
+          <div className="flex items-center">
+            <div className="hidden md:block">
+              <div className="ml-10 flex items-baseline space-x-8">
+                <NavLink to="/">{t('nav.home')}</NavLink>
+                <NavLink to="/#about">{t('nav.about')}</NavLink>
+                <NavLink to="/#projects">{t('nav.projects')}</NavLink>
+                <NavLink to="/#contact">{t('nav.contact')}</NavLink>
+              </div>
             </div>
-          </div>
-          
-          <div className="md:hidden">
-            <button
-              onClick={toggleMenu}
-              className="inline-flex items-center justify-center p-2 rounded-md text-cyan-400 hover:text-white hover:bg-gray-900 focus:outline-none"
-              aria-expanded="false"
-            >
-              <span className="sr-only">Open main menu</span>
-              <svg
-                className={`${isMenuOpen ? 'hidden' : 'block'} h-6 w-6`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
+            
+            {/* Desktop Language Switcher */}
+            <div className="ml-4 hidden md:flex items-center space-x-1 text-sm">
+              <button
+                onClick={() => changeLanguage('en')}
+                className={`px-2 py-1 rounded ${i18n.language === 'en' ? 'text-cyan-400 font-semibold' : 'text-gray-300 hover:text-cyan-400'} transition-colors`}
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-              </svg>
-              <svg
-                className={`${isMenuOpen ? 'block' : 'hidden'} h-6 w-6`}
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                aria-hidden="true"
+                EN
+              </button>
+              <span className="text-gray-500">|</span>
+              <button
+                onClick={() => changeLanguage('de')}
+                className={`px-2 py-1 rounded ${i18n.language === 'de' ? 'text-cyan-400 font-semibold' : 'text-gray-300 hover:text-cyan-400'} transition-colors`}
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+                DE
+              </button>
+            </div>
+
+            {/* Mobile Language Switcher - Added Here */}
+            <div className="ml-4 flex md:hidden items-center space-x-1 text-sm">
+              <button
+                onClick={() => changeLanguage('en')}
+                className={`px-2 py-1 rounded ${i18n.language === 'en' ? 'text-cyan-400 font-semibold' : 'text-gray-300 hover:text-cyan-400'} transition-colors`}
+              >
+                EN
+              </button>
+              <span className="text-gray-500">|</span>
+              <button
+                onClick={() => changeLanguage('de')}
+                className={`px-2 py-1 rounded ${i18n.language === 'de' ? 'text-cyan-400 font-semibold' : 'text-gray-300 hover:text-cyan-400'} transition-colors`}
+              >
+                DE
+              </button>
+            </div>
+            
+            {/* Hamburger Menu Button */}
+            <div className="md:hidden ml-2"> {/* Added ml-2 for spacing */} 
+              <button
+                onClick={toggleMenu}
+                className="inline-flex items-center justify-center p-2 rounded-md text-cyan-400 hover:text-white hover:bg-gray-900 focus:outline-none"
+                aria-expanded="false"
+              >
+                <span className="sr-only">Open main menu</span>
+                <svg
+                  className={`${isMenuOpen ? 'hidden' : 'block'} h-6 w-6`}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <svg
+                  className={`${isMenuOpen ? 'block' : 'hidden'} h-6 w-6`}
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  aria-hidden="true"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -89,16 +133,16 @@ const Navbar = () => {
             <div className="h-6 w-6 rounded-full overflow-hidden border border-cyan-500/20">
               <img
                 src={profilePhoto}
-                alt="Ali Ajib"
+                alt={t('altTexts.aliAjib')}
                 className="h-full w-full object-cover"
               />
             </div>
             <span className="text-gray-300 text-xs font-medium">Ali Ajib</span>
           </div>
-          <MobileNavLink to="/" onClick={toggleMenu}>Home</MobileNavLink>
-          <MobileNavLink to="/#about" onClick={toggleMenu}>About</MobileNavLink>
-          <MobileNavLink to="/#projects" onClick={toggleMenu}>Projects</MobileNavLink>
-          <MobileNavLink to="/#contact" onClick={toggleMenu}>Contact</MobileNavLink>
+          <MobileNavLink to="/" onClick={toggleMenu}>{t('nav.home')}</MobileNavLink>
+          <MobileNavLink to="/#about" onClick={toggleMenu}>{t('nav.about')}</MobileNavLink>
+          <MobileNavLink to="/#projects" onClick={toggleMenu}>{t('nav.projects')}</MobileNavLink>
+          <MobileNavLink to="/#contact" onClick={toggleMenu}>{t('nav.contact')}</MobileNavLink>
         </div>
       </div>
     </nav>

@@ -1,7 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation, Trans } from 'react-i18next';
 
 const Footer = () => {
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
   
   return (
@@ -10,16 +12,25 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
             <p className="text-gray-400 text-sm">
-              © {currentYear} <span className="text-cyan-400">Ali Ajib</span>. All rights reserved.
+              <Trans
+                i18nKey="footer.copyright"
+                values={{ year: currentYear }}
+                components={{
+                  1: <span className="text-cyan-400" />,
+                }}
+              />
             </p>
           </div>
           
           <div className="flex items-center space-x-4">
             <p className="text-gray-400 text-sm">
-              Designed & Developed with <span className="text-cyan-400">❤</span> by{" "}
-              <Link to="/" className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300">
-                Ali Ajib
-              </Link>
+              <Trans
+                i18nKey="footer.designedBy"
+                components={{
+                  1: <span className="text-cyan-400">❤</span>,
+                  2: <Link to="/" className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300" />,
+                }}
+              />
             </p>
             <div className="flex space-x-3">
               <a 
@@ -34,7 +45,7 @@ const Footer = () => {
                 </svg>
               </a>
               <a 
-                href="https://www.linkedin.com/in/ali-ajib-1ab6532b4" 
+                href="https://www.linkedin.com/in/ali-ajib-5a5b5c/" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="text-gray-400 hover:text-cyan-400 transition-colors duration-300"

@@ -1,0 +1,129 @@
+{
+  "greeting": "Hallo Welt",
+  "welcome": "Willkommen in meinem Portfolio",
+  "nav": {
+    "home": "Startseite",
+    "about": "Über Mich",
+    "projects": "Projekte",
+    "contact": "Kontakt",
+    "openMenu": "Hauptmenü öffnen"
+  },
+  "altTexts": {
+    "aliAjib": "Ali Ajib"
+  },
+  "home": {
+    "greeting": "Hi, ich bin",
+    "tagline": "IT-Student & Entwickler in Aktion",
+    "viewProjects": "Projekte ansehen",
+    "learnMore": "Mehr erfahren",
+    "getInTouch": "Kontakt aufnehmen"
+  },
+  "about": {
+    "title1": "Über",
+    "title2": "Mich",
+    "paragraph1": "Ich bin Informatikstudent an der Frankfurt University of Applied Sciences mit praktischer Erfahrung in IT-Support, Full-Stack-Entwicklung und Cybersicherheit. Ursprünglich in der Medizin ausgebildet, wechselte ich nach meinem Umzug nach Deutschland das Fachgebiet und fand meine wahre Leidenschaft in der Technologie.",
+    "paragraph2_part1": "Mein Weg spiegelt Belastbarkeit, Anpassungsfähigkeit und Neugier wider – Eigenschaften, die ich täglich in meinen Codierungsprojekten anwende, wie z. B. bei dieser Portfolio-Website, die ich von Grund auf mit",
+    "paragraph2_part2": "und der",
+    "paragraph2_part3": "entwickelt habe. Neben meinem Studium habe ich einen Cybersicherheitskurs bei",
+    "paragraph2_part4": "absolviert und entwickle meine Fähigkeiten im Ethical Hacking und mit",
+    "paragraph2_part5": "Systemen kontinuierlich weiter.",
+    "paragraph3": "Über das Programmieren hinaus löse ich gerne kreativ Probleme, betreue internationale Studierende und erforsche die Schnittstelle zwischen Technologie, Logik und menschlichem Verhalten.",
+    "tagline": "Lassen Sie uns gemeinsam etwas Sinnvolles schaffen.",
+    "linkedinLink": "Mehr über mich auf LinkedIn",
+    "fluentTitle": "Spricht Fließend",
+    "skillsTitle": "Fähigkeiten",
+    "languages": [
+      { "key": "ar", "label": "Arabisch" },
+      { "key": "de", "label": "Deutsch" },
+      { "key": "en", "label": "Englisch" },
+      { "key": "sr", "label": "Serbisch" }
+    ],
+    "skillsList": [
+      { "key": "ai", "label": "KI-gestützter Workflow" },
+      { "key": "os", "label": "Windows & Linux" },
+      { "key": "prog", "label": "Python & C" },
+      { "key": "web", "label": "HTML & CSS" },
+      { "key": "db", "label": "SQL" },
+      { "key": "sec", "label": "Cybersicherheit" },
+      { "key": "prob", "label": "Problemlösung" },
+      { "key": "more", "label": "Und Mehr" }
+    ]
+  },
+  "projects": {
+    "title1": "Meine",
+    "title2": "Projekte",
+    "subtitle": "Hier sind einige der Projekte, an denen ich gearbeitet habe",
+    "techUsed": "Verwendete Technologien",
+    "viewCode": "Code ansehen",
+    "readMore": "Mehr lesen",
+    "comingSoon": "Projekte folgen in Kürze...",
+    "checkBack": "Schauen Sie später wieder vorbei!",
+    "screenshotAlt": "{{title}} Screenshot {{number}}",
+    "viewDetailsAria": "Details für {{title}} ansehen",
+    "prevImageAria": "Vorheriges Bild",
+    "nextImageAria": "Nächstes Bild",
+    "goToImageAria": "Gehe zu Bild {{number}}",
+    "viewCodeAria": "Code für {{title}} ansehen",
+    "readMoreAria": "Mehr über {{title}} lesen"
+  },
+  "projectDetails": {
+    "personal-portfolio": {
+      "title": "Persönliches Portfolio",
+      "description": "Ein selbst initiiertes Portfolio-Projekt, das von Grund auf mit Webtechnologien entwickelt wurde und Problemlösungsfähigkeiten sowie Programmierkenntnisse in Linux- und Windows-Umgebungen demonstriert.",
+      "detail": {
+        "longDescription": "<span class=\"font-bold\">Rolle:</span> Full-Stack-Entwickler | Eigeninitiiertes Projekt<br><br>Dieses persönliche Portfolio wurde vollständig von mir unter Verwendung von Webtechnologien und meiner praktischen Erfahrung mit Linux- und Windows-Umgebungen entwickelt. Ich habe mich nicht auf externe Vorlagen oder Frameworks verlassen – stattdessen habe ich logisches Denken, Problemlösungsfähigkeiten und gesunden Menschenverstand, geprägt durch meinen Hintergrund in der Programmierung (C und Python), genutzt, um jeden Teil dieser Website zu entwerfen und zu implementieren. Ich habe auch KI-gestützte Werkzeuge wie Vibe Coding und Gemini für Vorschläge, Debugging und Produktivitätssteigerungen verwendet.<br><br><span class=\"text-[#00e1ff] hover:text-[#00f2ff] transition-colors duration-300 cursor-pointer\">Code ansehen → <svg class=\"inline-block w-6 h-6 ml-1\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path fill-rule=\"evenodd\" d=\"M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.137 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z\" clip-rule=\"evenodd\" /></svg></span>",
+        "features": [
+          "Entwicklung der Seitenstruktur mit <span class='font-bold'>HTML5</span> und <span class='font-bold'>React.js</span>, gestylt mit <span class='font-bold'>Tailwind CSS</span> und erstellt mit <span class='font-bold'>Vite</span>.",
+          "Entwurf und Implementierung eines <span class='font-bold'>interaktiven, canvas-basierten Hintergrunds</span> mit dynamischen Knoten, die auf Benutzerinteraktion reagieren.",
+          "Anwendung von Kenntnissen in <span class='font-bold'>DOM-Manipulation</span>, <span class='font-bold'>Event-Handling</span> und der <span class='font-bold'>Canvas API</span> zur Erstellung flüssiger Animationen.",
+          "Erstellung eines vollständig <span class='font-bold'>responsiven Designs</span> von Grund auf nach Mobile-First-Prinzipien, mit flexiblen Rastern und nahtlosen UI/UX-Übergängen, inspiriert von neuronalen Netzwerkstrukturen.",
+          "Eigenständige Entwicklung aller Funktionen bei gleichzeitiger Verwaltung der Entwicklungsumgebung auf <span class='font-bold'>Linux</span> und <span class='font-bold'>Windows</span>.",
+          "Verwendung von <span class='font-bold'>Git</span> zur Versionskontrolle und konsistenten Projektverfolgung.",
+          "Anwendung strukturierter Logik und Argumentation, inspiriert durch meinen Programmierhintergrund, zur Organisation des Codes und zur Lösung von Implementierungsherausforderungen."
+        ],
+        "challenges": [
+          "Sicherstellung, dass <span class='font-bold'>komplexe Canvas-Animationen</span> auf Desktop- und Mobilgeräten reibungslos laufen.",
+          "Erreichen eines <span class='font-bold'>responsiven und zugänglichen Designs</span> mit intuitiver Benutzerinteraktion.",
+          "Optimierung von <span class='font-bold'>Leistung und Rendering</span> durch <span class='text-[#00e1ff]'>requestAnimationFrame</span> und effiziente Handhabung von Assets."
+        ]
+      }
+    }
+  },
+  "projectDetail": {
+    "notFound": "Projekt nicht gefunden",
+    "backButton": "← Zurück zu den Projekten",
+    "backButtonShort": "Zurück",
+    "featuresTitle": "Was ich gemacht habe",
+    "challengesTitle": "Gelöste Herausforderungen",
+    "techTitle": "Verwendete Technologien",
+    "toolsTitle": "Verwendete Werkzeuge",
+    "viewOnGithub": "Code auf GitHub ansehen"
+  },
+  "contact": {
+    "title1": "Kontakt",
+    "title2": "Aufnehmen",
+    "subtitle": "Haben Sie eine Frage oder möchten Sie zusammenarbeiten? Melden Sie sich gerne!",
+    "infoTitle": "Kontaktinformationen",
+    "emailLabel": "E-Mail",
+    "copied": "Kopiert",
+    "locationLabel": "Standort",
+    "connectTitle": "Verbinden Sie sich mit mir",
+    "formTitle": "Nachricht senden",
+    "submitSuccess": "Ihr E-Mail-Client wird geöffnet, um die Nachricht zu senden...",
+    "nameLabel": "Name",
+    "namePlaceholder": "Ihr Name",
+    "emailLabelForm": "E-Mail",
+    "emailPlaceholder": "ihre.email@beispiel.com",
+    "subjectLabel": "Betreff",
+    "subjectPlaceholder": "Worum geht es?",
+    "messageLabel": "Nachricht",
+    "messagePlaceholder": "Ihre Nachricht hier...",
+    "submitButton": "Nachricht per E-Mail-Client senden",
+    "mailtoSubject": "Von Portfolio-Website: {{subject}}",
+    "mailtoBody": "Name: {{name}}\nE-Mail: {{email}}\n\nNachricht:\n{{message}}"
+  },
+  "footer": {
+    "copyright": "© {{year}} <1>Ali Ajib</1>. Alle Rechte vorbehalten.",
+    "designedBy": "Entworfen & Entwickelt mit <1></1> von <2>Ali Ajib</2>"
+  }
+} 
