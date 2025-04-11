@@ -27,7 +27,7 @@ const Footer = () => {
               <Trans
                 i18nKey="footer.designedBy"
                 components={{
-                  1: <span className="text-cyan-400">❤</span>,
+                  1: <span className="text-red-500" dangerouslySetInnerHTML={{ __html: '&hearts;' }}></span>,
                   2: <Link to="/" className="text-cyan-400 hover:text-cyan-300 transition-colors duration-300" />,
                 }}
               />
