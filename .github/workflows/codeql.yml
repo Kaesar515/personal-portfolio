@@ -1,12 +1,14 @@
 name: "CodeQL"
 
 on:
+  workflow_dispatch:      # ✅ This enables the "Run workflow" button in GitHub UI
   push:
     branches: [main]
   pull_request:
     branches: [main]
   schedule:
     - cron: '0 0 * * 0'  # weekly scan
+
 
 jobs:
   analyze:
