@@ -1,0 +1,129 @@
+{
+  "greeting": "Hello World",
+  "welcome": "Welcome to my portfolio",
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "contact": "Contact",
+    "openMenu": "Open main menu"
+  },
+  "altTexts": {
+    "aliAjib": "Ali Ajib"
+  },
+  "home": {
+    "greeting": "Hi, I'm",
+    "tagline": "IT Student & Developer in Action",
+    "viewProjects": "View Projects",
+    "learnMore": "Learn More",
+    "getInTouch": "Get in Touch"
+  },
+  "about": {
+    "title1": "About",
+    "title2": "Me",
+    "paragraph1": "I'm a Computer Science student at Frankfurt University of Applied Sciences with hands-on experience in IT support, full-stack development, and cybersecurity. Originally trained in medicine, I changed fields after relocating to Germany and found my true passion in technology.",
+    "paragraph2_part1": "My journey reflects resilience, adaptability, and curiosity – qualities I apply daily in my coding projects, such as this portfolio site, which I designed and built from scratch using",
+    "paragraph2_part2": "and the",
+    "paragraph2_part3": "Alongside my academic work, I've completed a cybersecurity course from",
+    "paragraph2_part4": "and continue developing my skills in ethical hacking and",
+    "paragraph2_part5": "systems.",
+    "paragraph3": "Beyond code, I enjoy solving problems creatively, mentoring international students, and exploring the intersection of tech, logic, and human behavior.",
+    "tagline": "Let's build something meaningful together.",
+    "linkedinLink": "More about me on LinkedIn",
+    "fluentTitle": "Fluent In",
+    "skillsTitle": "Skills",
+    "languages": [
+      { "key": "ar", "label": "Arabic" },
+      { "key": "de", "label": "German" },
+      { "key": "en", "label": "English" },
+      { "key": "sr", "label": "Serbian" }
+    ],
+    "skillsList": [
+      { "key": "ai", "label": "AI-Enhanced Workflow" },
+      { "key": "os", "label": "Windows & Linux" },
+      { "key": "prog", "label": "Python & C" },
+      { "key": "web", "label": "HTML & CSS" },
+      { "key": "db", "label": "SQL" },
+      { "key": "sec", "label": "Cybersecurity" },
+      { "key": "prob", "label": "Problem Solving" },
+      { "key": "more", "label": "And More" }
+    ]
+  },
+  "projects": {
+    "title1": "My",
+    "title2": "Projects",
+    "subtitle": "Here are some of the projects I've worked on",
+    "techUsed": "Technologies Used",
+    "viewCode": "View Code",
+    "readMore": "Read More",
+    "comingSoon": "Projects coming soon...",
+    "checkBack": "Check back later for updates!",
+    "screenshotAlt": "{{title}} screenshot {{number}}",
+    "viewDetailsAria": "View details for {{title}}",
+    "prevImageAria": "Previous image",
+    "nextImageAria": "Next image",
+    "goToImageAria": "Go to image {{number}}",
+    "viewCodeAria": "View code for {{title}}",
+    "readMoreAria": "Read more about {{title}}"
+  },
+  "projectDetails": {
+    "personal-portfolio": {
+      "title": "Personal Portfolio",
+      "description": "A self-initiated portfolio project developed from scratch using web technologies, demonstrating problem-solving skills and programming expertise in both Linux and Windows environments.",
+      "detail": {
+        "longDescription": "<span class=\"font-bold\">Role:</span> Full-Stack Developer | Self-Initiated Project<br><br>This personal portfolio was fully developed by me using web technologies and my practical experience with Linux and Windows environments. I didn't rely on external templates or frameworks — instead, I used logical thinking, problem-solving skills, and common sense shaped by my background in programming (C and Python) to design and implement every part of this website. I also made use of AI-assisted tools such as Vibe Coding and Gemini for suggestions, debugging, and productivity boosts.<br><br>Attention was also given to security practices, including implementing a secure contact form featuring backend processing, spam prevention via hCaptcha, and input sanitization.<br><br><a href=\"https://github.com/Kaesar515/personal-portfolio\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-[#00e1ff] hover:text-[#00f2ff] transition-colors duration-300 cursor-pointer inline-flex items-center\">View the code → <svg class=\"inline-block w-6 h-6 ml-1\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path fill-rule=\"evenodd\" d=\"M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.137 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z\" clip-rule=\"evenodd\" /></svg></a>",
+        "features": [
+          "Developed the site structure using <span class='font-bold'>HTML5</span> and <span class='font-bold'>React.js</span>, styled with <span class='font-bold'>Tailwind CSS</span>, and built with <span class='font-bold'>Vite</span>.",
+          "Designed and implemented an <span class='font-bold'>interactive canvas-based background</span> with dynamic nodes responsive to user interaction.",
+          "Applied knowledge of <span class='font-bold'>DOM manipulation</span>, <span class='font-bold'>event handling</span>, and the <span class='font-bold'>Canvas API</span> to create smooth animations.",
+          "Built a fully <span class='font-bold'>responsive design</span> from scratch using mobile-first principles, flexible grids, and smooth UI/UX transitions, inspired by neural network structures.",
+          "Developed all features independently while managing the development environment on both <span class='font-bold'>Linux</span> and <span class='font-bold'>Windows</span>.",
+          "Used <span class='font-bold'>Git</span> for version control and consistent project tracking.",
+          "Applied structured logic and reasoning, inspired by my programming background, to organize the code and solve implementation challenges.",
+          "Implemented a <span class='font-bold'>secure contact form</span> using a serverless backend function, environment variables for secrets, input sanitization (preventing common injection exploits), and <span class='font-bold'>hCaptcha</span> spam protection."
+        ],
+        "challenges": [
+          "Made <span class='font-bold'>complex canvas animations</span> run smoothly across both desktop and mobile devices.",
+          "Achieved a <span class='font-bold'>responsive and accessible design</span> with intuitive user interaction.",
+          "Optimized <span class='font-bold'>performance and rendering</span> using <span class='text-[#00e1ff]'>requestAnimationFrame</span> and efficient asset handling."
+        ]
+      }
+    }
+  },
+  "projectDetail": {
+    "notFound": "Project not found",
+    "backButton": "← Back to Projects",
+    "backButtonShort": "Back",
+    "featuresTitle": "What I Did",
+    "challengesTitle": "Challenges I Solved",
+    "techTitle": "Tech Used",
+    "toolsTitle": "Tool Used",
+    "viewOnGithub": "View Code on GitHub"
+  },
+  "contact": {
+    "title1": "Get in",
+    "title2": "Touch",
+    "subtitle": "Have a question or want to work together? Feel free to reach out!",
+    "infoTitle": "Contact Information",
+    "emailLabel": "Email",
+    "copied": "Copied",
+    "locationLabel": "Location",
+    "connectTitle": "Connect With Me",
+    "formTitle": "Send Me a Message",
+    "submitSuccess": "Message sent successfully!",
+    "submitError": "Failed to send message. Please try again later.",
+    "nameLabel": "Name",
+    "namePlaceholder": "Your name",
+    "emailLabelForm": "Email",
+    "emailPlaceholder": "your.email@example.com",
+    "subjectLabel": "Subject",
+    "subjectPlaceholder": "What's this about?",
+    "messageLabel": "Message",
+    "messagePlaceholder": "Your message here...",
+    "submitButton": "Send Message"
+  },
+  "footer": {
+    "copyright": "© {{year}} <1>Ali Ajib</1>. All rights reserved.",
+    "designedBy": "Designed & Developed with <1></1> by <2>Ali Ajib</2>"
+  }
+} 
