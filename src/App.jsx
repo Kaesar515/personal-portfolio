@@ -1,3 +1,8 @@
+/**
+ * Created by Ali Ajib - https://aliajib.com
+ * Licensed under CC BY-NC-SA 4.0. If you reuse or modify this project, please keep this notice.
+ */
+
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/layout/Navbar';
 import Footer from './components/layout/Footer';
