@@ -107,8 +107,6 @@ const ContactPage = () => {
       if (result.success) {
         setSubmitSuccess(true);
         setFormData({ user_name: '', user_email: '', subject: '', message: '' });
-        setHCaptchaToken(null);
-        captchaRef.current?.resetCaptcha();
         setTimeout(() => {
           setSubmitSuccess(false);
         }, 5000);
@@ -121,6 +119,8 @@ const ContactPage = () => {
       setSubmitError(error.message || t('contact.submitError'));
     } finally {
       setIsSubmitting(false);
+      setHCaptchaToken(null);
+      captchaRef.current?.resetCaptcha();
     }
   };
 
