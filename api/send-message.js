@@ -34,11 +34,29 @@ function escapeHtml(unsafe) {
        .replace(/'/g, "&#039;");
 }
 
-// Initialize Resend with the API key from environment variables
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Get environment variables
+const RESEND_API_KEY_FROM_ENV = process.env.RESEND_API_KEY;
 const toEmail = process.env.TO_EMAIL_ADDRESS;
-const fromEmail = process.env.FROM_EMAIL_ADDRESS || 'contact@aliajib.com'; // Default, replace with your verified Resend domain email
-const hCaptchaSecret = process.env.HCAPTCHA_SECRET_KEY; // Get hCaptcha Secret Key
+const fromEmail = process.env.FROM_EMAIL_ADDRESS || 'contact@aliajib.com';
+const hCaptchaSecret = process.env.HCAPTCHA_SECRET_KEY;
+
+// *** ADDED DEBUG LOGGING ***
+console.log(`--- Vercel Function Log ---`);
+console.log(`RESEND_API_KEY_FROM_ENV type: ${typeof RESEND_API_KEY_FROM_ENV}`);
+console.log(`RESEND_API_KEY_FROM_ENV exists: ${!!RESEND_API_KEY_FROM_ENV}`);
+// Avoid logging the actual key for security, but log its length if it exists
+if (RESEND_API_KEY_FROM_ENV) {
+  console.log(`RESEND_API_KEY_FROM_ENV length: ${RESEND_API_KEY_FROM_ENV.length}`);
+} else {
+  console.log(`RESEND_API_KEY_FROM_ENV length: Not available`);
+}
+console.log(`toEmail exists: ${!!toEmail}`);
+console.log(`fromEmail value: ${fromEmail}`);
+console.log(`hCaptchaSecret exists: ${!!hCaptchaSecret}`);
+console.log(`--- End Vercel Function Log ---`);
+
+// Initialize Resend with the API key from environment variables
+const resend = new Resend(RESEND_API_KEY_FROM_ENV); // Use the variable we logged
 
 export default async function handler(req, res) {
   // Only allow POST requests
@@ -98,7 +116,7 @@ export default async function handler(req, res) {
       console.error('TO_EMAIL_ADDRESS environment variable is not set.');
       return res.status(500).json({ success: false, message: 'Server configuration error.' });
   }
-   if (!process.env.RESEND_API_KEY) {
+   if (!RESEND_API_KEY_FROM_ENV) {
       console.error('RESEND_API_KEY environment variable is not set.');
       return res.status(500).json({ success: false, message: 'Server configuration error.' });
   }
