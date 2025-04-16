@@ -120,7 +120,8 @@
     "subjectPlaceholder": "What's this about?",
     "messageLabel": "Message",
     "messagePlaceholder": "Your message here...",
-    "submitButton": "Send Message"
+    "submitButton": "Send Message",
+    "submitting": "Submitting..."
   },
   "footer": {
     "copyright": "© {{year}} <1>Ali Ajib</1>. All rights reserved.",

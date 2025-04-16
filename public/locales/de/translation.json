@@ -120,6 +120,7 @@
     "messageLabel": "Nachricht",
     "messagePlaceholder": "Ihre Nachricht hier...",
     "submitButton": "Nachricht per E-Mail-Client senden",
+    "submitting": "Senden...",
     "mailtoSubject": "Von Portfolio-Website: {{subject}}",
     "mailtoBody": "Name: {{name}}\nE-Mail: {{email}}\n\nNachricht:\n{{message}}"
   },
