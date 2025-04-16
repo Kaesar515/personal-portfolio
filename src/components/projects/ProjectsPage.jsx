@@ -38,10 +38,8 @@ const ProjectCard = ({ project }) => {
   };
 
   return (
-    <Link
-        to={`/projects/${slug}`}
-        className="block bg-gray-900/50 backdrop-blur-sm rounded-lg overflow-hidden border border-gray-800 hover:border-[#00e1ff] transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-transparent"
-        aria-label={t('projects.viewDetailsAria', { title })}
+    <div
+        className="block bg-gray-900/50 backdrop-blur-sm rounded-lg overflow-hidden border border-gray-800 hover:border-[#00e1ff] transition-colors duration-300"
     >
       {images && images.length > 0 && (
         <div className="relative aspect-w-16 aspect-h-9">
@@ -121,7 +119,7 @@ const ProjectCard = ({ project }) => {
            </Link>
         </div>
       </div>
-    </Link>
+    </div>
   );
 };
 

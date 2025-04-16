@@ -1,5 +1,9 @@
 import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import HCaptcha from '@hcaptcha/react-hcaptcha';
+
+// Get the Site Key from environment variables (Vite specific)
+const HCAPTCHA_SITE_KEY_FROM_ENV = import.meta.env.VITE_HCAPTCHA_SITE_KEY;
 
 const ContactPage = () => {
   const { t } = useTranslation();
@@ -12,6 +16,10 @@ const ContactPage = () => {
   });
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [copySuccess, setCopySuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
+  const [hCaptchaToken, setHCaptchaToken] = useState(null);
+  const captchaRef = useRef(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -60,27 +68,60 @@ const ContactPage = () => {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitError(null);
+    setSubmitSuccess(false);
 
-    const mailtoSubject = t('contact.mailtoSubject', { subject: formData.subject });
-    const mailtoBody = t('contact.mailtoBody', {
-        name: formData.user_name,
-        email: formData.user_email,
-        message: formData.message,
-        interpolation: { escapeValue: false }
-    });
+    if (!hCaptchaToken) {
+      setSubmitError('Please complete the CAPTCHA verification.');
+      setIsSubmitting(false);
+      return;
+    }
 
-    const mailtoUrl = `mailto:contact@aliajib.com?subject=${encodeURIComponent(mailtoSubject)}&body=${encodeURIComponent(mailtoBody)}`;
+    try {
+      const response = await fetch('/api/send-message', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          ...formData,
+          hCaptchaToken: hCaptchaToken
+        }),
+      });
 
-    window.open(mailtoUrl, '_blank');
+      if (!response.ok) {
+        let errorData;
+        try {
+            errorData = await response.json();
+        } catch (parseError) {
+            // Ignore if response is not JSON
+        }
+        throw new Error(errorData?.message || `HTTP error! status: ${response.status}`);
+      }
 
-    setSubmitSuccess(true);
-    setFormData({ user_name: '', user_email: '', subject: '', message: '' });
+      const result = await response.json();
 
-    setTimeout(() => {
-      setSubmitSuccess(false);
-    }, 5000);
+      if (result.success) {
+        setSubmitSuccess(true);
+        setFormData({ user_name: '', user_email: '', subject: '', message: '' });
+        setHCaptchaToken(null);
+        captchaRef.current?.resetCaptcha();
+        setTimeout(() => {
+          setSubmitSuccess(false);
+        }, 5000);
+      } else {
+         throw new Error(result.message || 'An unexpected error occurred.');
+      }
+
+    } catch (error) {
+      console.error('Failed to send message:', error);
+      setSubmitError(error.message || t('contact.submitError'));
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -188,7 +229,13 @@ const ContactPage = () => {
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-6">
+            {submitError && (
+              <div className="mb-6 p-4 bg-red-900/50 border border-red-500/30 rounded-lg text-red-300">
+                <p>{t('contact.submitError')}: {submitError}</p>
+              </div>
+            )}
+
+            <form ref={form} onSubmit={handleSubmit} className="space-y-6">
               <div>
                 <label htmlFor="user_name" className="block text-sm font-medium text-gray-300 mb-1">
                   {t('contact.nameLabel')}
@@ -200,6 +247,7 @@ const ContactPage = () => {
                   value={formData.user_name}
                   onChange={handleChange}
                   required
+                  autoComplete="name"
                   className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent select-text"
                   placeholder={t('contact.namePlaceholder')}
                 />
@@ -207,7 +255,7 @@ const ContactPage = () => {
 
               <div>
                 <label htmlFor="user_email" className="block text-sm font-medium text-gray-300 mb-1">
-                  {t('contact.emailLabel')}
+                  {t('contact.emailLabelForm')}
                 </label>
                 <input
                   type="email"
@@ -216,6 +264,7 @@ const ContactPage = () => {
                   value={formData.user_email}
                   onChange={handleChange}
                   required
+                  autoComplete="email"
                   className="w-full px-4 py-2 bg-gray-800 border border-gray-700 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent select-text"
                   placeholder={t('contact.emailPlaceholder')}
                 />
@@ -253,12 +302,23 @@ const ContactPage = () => {
                 ></textarea>
               </div>
 
+              <div className="my-4">
+                <HCaptcha
+                  sitekey={HCAPTCHA_SITE_KEY_FROM_ENV}
+                  onVerify={(token) => setHCaptchaToken(token)}
+                  onExpire={() => setHCaptchaToken(null)}
+                  ref={captchaRef}
+                  theme="dark"
+                />
+              </div>
+
               <div>
                 <button
                   type="submit"
-                  className="w-full px-6 py-3 text-base font-medium rounded-md text-black bg-[#00e1ff] hover:bg-[#00f2ff] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all duration-300 shadow-lg hover:shadow-cyan-500/40"
+                  disabled={isSubmitting}
+                  className="w-full inline-flex justify-center py-3 px-6 border border-transparent shadow-sm text-base font-medium rounded-md text-black bg-[#00e1ff] hover:bg-cyan-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500 disabled:opacity-50 disabled:cursor-not-allowed transition duration-150 ease-in-out"
                 >
-                  {t('contact.submitButton')}
+                  {isSubmitting ? t('contact.submitting') : t('contact.submitButton')}
                 </button>
               </div>
             </form>

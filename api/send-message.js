@@ -4,6 +4,15 @@
  */
 
 import { Resend } from 'resend';
+import dotenv from 'dotenv';
+import path from 'path';
+
+// Determine the correct .env file path based on NODE_ENV
+const envPath = process.env.NODE_ENV === 'production'
+  ? path.resolve(process.cwd(), '.env.production.local') // Adjust if you use a different naming convention for production
+  : path.resolve(process.cwd(), '.env.development.local');
+
+dotenv.config({ path: envPath });
 
 // --- Configuration via Environment Variables ---
 // This function relies on environment variables for configuration and secrets.
@@ -99,10 +108,10 @@ export default async function handler(req, res) {
     const data = await resend.emails.send({
       from: `Ali Ajib Portfolio <${fromEmail}>`, // Format the 'from' address
       to: [toEmail], // The email address receiving the contact form submissions
-      subject: `New Contact Form Submission: ${sanitizedSubject}`,
+      subject: `from your portfolio: ${sanitizedSubject}`,
       reply_to: sanitizedEmail,
       html: `
-        <h1>New Contact Form Submission</h1>
+        <h1>Portfolio Contact Message</h1>
         <p><strong>Name:</strong> ${sanitizedName}</p>
         <p><strong>Email:</strong> ${sanitizedEmail}</p>
         <p><strong>Subject:</strong> ${sanitizedSubject}</p>

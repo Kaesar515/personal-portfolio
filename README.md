@@ -1,4 +1,14 @@
-# React + Vite
+# Ali Ajib - Personal Portfolio (React + Vite)
+
+This repository contains the code for the personal portfolio website of Ali Ajib, showcasing projects, skills, and providing contact information.
+
+**Live Site:** [https://aliajib.com](https://aliajib.com)
+
+Built with React and Vite, this project features:
+*   Responsive design for various screen sizes.
+*   Internationalization (i18n) support.
+*   A functional contact form using Resend and hCaptcha.
+*   Deployment via Vercel.
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
@@ -68,6 +78,21 @@ See the [LICENSE](./LICENSE) file for details. In summary:
 - If you remix, transform, or build upon the material, you **must** distribute your contributions under the same license (SA).
 
 Please give appropriate credit by linking back to [aliajib.com](https://aliajib.com) if you use or adapt this code.
+
+## Deployment Troubleshooting
+
+Deploying this project involved overcoming several challenges common in modern web development, particularly with Vercel deployments, custom domains, and environment variable management for serverless functions. The key issues encountered and resolved included:
+
+*   **Build Failures:** Initial builds failed on Vercel due to missing core dependencies (`i18next`, `react-i18next`) that were present locally. A subsequent build failure was traced to a potentially conflicting Vite alias configuration.
+*   **Custom Domain Setup:** Configuring the `aliajib.com` domain required resolving conflicts with existing DNS records (ALIAS vs. A records) at the registrar (Porkbun).
+*   **Contact Form Errors:** The contact form initially failed in production (HTTP 500) because necessary backend environment variables (like `RESEND_API_KEY` and `HCAPTCHA_SECRET_KEY`) were not correctly scoped to the Production environment in Vercel settings.
+
+Detailed step-by-step reports documenting the problems, investigations, and solutions can be found here:
+
+*   [Initial Troubleshooting Report](./vercel-build-troubleshooting.md)
+*   [Final Solution Report](./vercel-deployment-solution-report.md)
+
+These reports may be helpful if you encounter similar issues deploying this project or other Vite/React applications to Vercel.
 
 ---
 

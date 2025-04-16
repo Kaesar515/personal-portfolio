@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import profilePhoto from '../../assets/images/profile/barphoto.jpg';
+import profilePhoto from '../../assets/images/profile/logo.jpg';
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
@@ -23,21 +23,12 @@ const Navbar = () => {
           {/* Logo and Profile */}
           <div className="flex-shrink-0 flex items-center space-x-4">
             <div className="relative group">
-              <div className="h-14 w-14 rounded-full overflow-hidden border-2 border-cyan-400/30 group-hover:border-cyan-400 transition-colors duration-300">
+              <div className="h-14 w-14 rounded-full overflow-hidden border-2 border-transparent group-hover:border-cyan-400 transition-colors duration-300">
                 <img
                   src={profilePhoto}
                   alt={t('altTexts.aliAjib')}
                   className="h-full w-full object-cover pointer-events-none"
                 />
-              </div>
-              <div className="hidden group-hover:block absolute top-0 left-0 transform -translate-y-2 translate-x-16 z-50">
-                <div className="h-40 w-40 rounded-lg overflow-hidden border-2 border-cyan-400 shadow-lg">
-                  <img
-                    src={profilePhoto}
-                    alt={t('altTexts.aliAjib')}
-                    className="h-full w-full object-cover"
-                  />
-                </div>
               </div>
             </div>
             <Link 
