@@ -119,10 +119,8 @@
     "subjectPlaceholder": "Worum geht es?",
     "messageLabel": "Nachricht",
     "messagePlaceholder": "Ihre Nachricht hier...",
-    "submitButton": "Nachricht per E-Mail-Client senden",
-    "submitting": "Senden...",
-    "mailtoSubject": "Von Portfolio-Website: {{subject}}",
-    "mailtoBody": "Name: {{name}}\nE-Mail: {{email}}\n\nNachricht:\n{{message}}"
+    "submitButton": "Nachricht senden",
+    "submitting": "Senden..."
   },
   "footer": {
     "copyright": "© {{year}} <1>Ali Ajib</1>. Alle Rechte vorbehalten.",
