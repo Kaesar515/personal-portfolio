@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import portfolioCardImage from '../../assets/images/projects/homepp.jpg';
+import sumoSimulationImage from '../../assets/images/projects/sumo_simulation_gui.png';
 
 const ProjectCard = ({ project }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const {
@@ -16,62 +18,66 @@ const ProjectCard = ({ project }) => {
     githubUrl
   } = project;
 
+  const handleCardClick = () => {
+    navigate(`/projects/${slug}`);
+  };
+
   const stopPropagation = (e) => e.stopPropagation();
 
   const nextImage = (e) => {
     e.stopPropagation();
     if (images && images.length > 0) {
-        setCurrentImageIndex((prev) => (prev + 1) % images.length);
+      setCurrentImageIndex((prev) => (prev + 1) % images.length);
     }
   };
 
   const prevImage = (e) => {
     e.stopPropagation();
     if (images && images.length > 0) {
-        setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+      setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
     }
   };
 
   const goToImage = (e, index) => {
-      e.stopPropagation();
-      setCurrentImageIndex(index);
+    e.stopPropagation();
+    setCurrentImageIndex(index);
   };
 
   return (
     <div
-        className="block bg-gray-900/50 backdrop-blur-sm rounded-lg overflow-hidden border border-gray-800 hover:border-[#00e1ff] transition-colors duration-300"
+      onClick={handleCardClick}
+      className="block bg-gray-900/50 backdrop-blur-sm rounded-lg overflow-hidden border border-gray-800 hover:border-[#00e1ff] transition-all duration-300 cursor-pointer group hover:-translate-y-1 hover:shadow-lg hover:shadow-[#00e1ff]/10"
     >
       {images && images.length > 0 && (
         <div className="relative aspect-w-16 aspect-h-9">
           <img
             src={images[currentImageIndex]}
             alt={t('projects.screenshotAlt', { title, number: currentImageIndex + 1 })}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
           {images.length > 1 && (
             <>
               <button
                 onClick={prevImage}
-                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors duration-300"
+                className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors duration-300 z-10"
                 aria-label={t('projects.prevImageAria')}
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
               </button>
               <button
                 onClick={nextImage}
-                className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors duration-300"
+                className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors duration-300 z-10"
                 aria-label={t('projects.nextImageAria')}
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
               </button>
-              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2">
+              <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-2 z-10">
                 {images.map((_, index) => (
                   <button
                     key={index}
                     onClick={(e) => goToImage(e, index)}
-                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                      index === currentImageIndex ? 'bg-[#00e1ff]' : 'bg-white/50'
-                    }`}
+                    className={`w-2 h-2 rounded-full transition-colors duration-300 ${index === currentImageIndex ? 'bg-[#00e1ff]' : 'bg-white/50'
+                      }`}
                     aria-label={t('projects.goToImageAria', { number: index + 1 })}
                   />
                 ))}
@@ -82,7 +88,7 @@ const ProjectCard = ({ project }) => {
       )}
 
       <div className="p-6 space-y-4">
-        <h3 className="text-2xl font-bold text-white">{title}</h3>
+        <h3 className="text-2xl font-bold text-white group-hover:text-[#00e1ff] transition-colors duration-300">{title}</h3>
         <p className="text-gray-300">{description}</p>
 
         <div className="space-y-2">
@@ -114,12 +120,13 @@ const ProjectCard = ({ project }) => {
             onClick={stopPropagation}
             className="px-4 py-2 text-sm font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-[#00e1ff] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:ring-offset-2 focus:ring-offset-gray-900"
             aria-label={t('projects.readMoreAria', { title })}
-           >
-             {t('projects.readMore')}
-           </Link>
+          >
+            {t('projects.readMore')}
+          </Link>
         </div>
       </div>
     </div>
+
   );
 };
 
@@ -133,10 +140,16 @@ const ProjectsPage = () => {
       titleKey: "projectDetails.personal-portfolio.title",
       descriptionKey: "projectDetails.personal-portfolio.description",
       technologies: ["React.js", "Vite", "Tailwind CSS", "HTML5", "CSS3", "JavaScript", "Canvas API", "Git"],
-      githubUrl: ""
+      githubUrl: "https://github.com/Kaesar515/personal-portfolio"
       // Image will be added manually below
+    },
+    {
+      slug: "traffic-simulation",
+      titleKey: "projectDetails.traffic-simulation.title",
+      descriptionKey: "projectDetails.traffic-simulation.description",
+      technologies: ["Java", "SUMO", "TraCI API", "OOP", "Concurrency", "Git"],
+      githubUrl: "https://github.com/lilsemy/SUMO_Group4"
     }
-    // Add other base project info here
   ];
 
   // Construct the final projects array with translated text
@@ -149,6 +162,8 @@ const ProjectsPage = () => {
     // Manually add image for now
     if (project.slug === 'personal-portfolio') {
       project.images = [portfolioCardImage];
+    } else if (project.slug === 'traffic-simulation') {
+      project.images = [sumoSimulationImage];
     }
     return project;
   });

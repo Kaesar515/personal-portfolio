@@ -1,6 +1,39 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import sumoSimulationGui from '../../assets/images/projects/sumo_simulation_gui.png';
+import sumoSimulationGuiClose from '../../assets/images/projects/sumo_simulation_gui_close.png';
+
+// Lightbox Component
+const Lightbox = ({ images, currentIndex, onClose, onNext, onPrev }) => {
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowRight') onNext();
+      if (e.key === 'ArrowLeft') onPrev();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [onClose, onNext, onPrev]);
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm" onClick={onClose}>
+      <button className="absolute top-4 right-4 text-white hover:text-[#00e1ff] transition-colors" onClick={onClose}>
+        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+      <button className="absolute left-4 text-white hover:text-[#00e1ff] transition-colors" onClick={(e) => { e.stopPropagation(); onPrev(); }}>
+        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+      </button>
+      <div className="relative max-w-7xl max-h-[90vh] w-full px-4" onClick={(e) => e.stopPropagation()}>
+        <img src={images[currentIndex]} alt={`Screenshot ${currentIndex + 1}`} className="w-full h-full object-contain max-h-[90vh] rounded-lg shadow-2xl shadow-[#00e1ff]/20" />
+      </div>
+      <button className="absolute right-4 text-white hover:text-[#00e1ff] transition-colors" onClick={(e) => { e.stopPropagation(); onNext(); }}>
+        <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+      </button>
+    </div>
+  );
+};
+
 
 // Base data structure - non-translatable parts
 const projectsBaseData = {
@@ -9,15 +42,22 @@ const projectsBaseData = {
     technologies: ["React.js", "Vite", "Tailwind CSS", "HTML5", "CSS3", "JavaScript", "Canvas API", "Git"],
     tools: ["VS Code", "Linux", "Windows", "Cursor", "mobile development environment", "Gemini AI API"],
     images: [], // We will add images later if needed
-    githubUrl: "", // To be added later
+    githubUrl: "https://github.com/Kaesar515/personal-portfolio",
+  },
+  'traffic-simulation': {
+    technologies: ["Java", "SUMO", "TraCI API", "OOP", "Concurrency", "Git"],
+    tools: ["IntelliJ IDEA", "GitHub", "Linux", "Windows"],
+    images: [sumoSimulationGui, sumoSimulationGuiClose],
+    githubUrl: "https://github.com/lilsemy/SUMO_Group4",
   }
   // Add base data for other projects here
 };
 
 const ProjectDetailPage = () => {
   const { slug } = useParams();
-  const { t } = useTranslation(); // Removed i18n instance
+  const { t } = useTranslation();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
   const baseProject = projectsBaseData[slug];
 
@@ -57,9 +97,14 @@ const ProjectDetailPage = () => {
   };
 
   const prevImage = () => {
-     if (project.images && project.images.length > 0) {
+    if (project.images && project.images.length > 0) {
       setCurrentImageIndex((prev) => (prev - 1 + project.images.length) % project.images.length);
-     }
+    }
+  };
+
+  const openLightbox = (index) => {
+    setCurrentImageIndex(index);
+    setIsLightboxOpen(true);
   };
 
   return (
@@ -76,54 +121,83 @@ const ProjectDetailPage = () => {
 
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-8 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">{project.title}</h1>
 
-        {/* Image Gallery - Keep conditional rendering logic */}
-        {slug !== 'personal-portfolio' && project.images && project.images.length > 0 && (
-           <div className="relative aspect-w-16 aspect-h-9 mb-8 rounded-lg overflow-hidden">
-             <img
-               src={project.images[currentImageIndex]}
-               alt={t('projects.screenshotAlt', { title: project.title, number: currentImageIndex + 1 })} // Reuse key
-               className="w-full h-full object-cover"
-             />
-             {project.images.length > 1 && (
-               <>
-                 <button
-                   onClick={prevImage}
-                   className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors duration-300"
-                   aria-label={t('projects.prevImageAria')} // Reuse key
-                 >
-                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-                 </button>
-                 <button
-                   onClick={nextImage}
-                   className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors duration-300"
-                   aria-label={t('projects.nextImageAria')} // Reuse key
-                 >
-                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
-                 </button>
-                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-                   {project.images.map((_, index) => (
-                     <button
-                       key={index}
-                       onClick={() => setCurrentImageIndex(index)}
-                       className={`w-2 h-2 rounded-full transition-colors duration-300 ${
-                         index === currentImageIndex ? 'bg-[#00e1ff]' : 'bg-white/50'
-                       }`}
-                       aria-label={t('projects.goToImageAria', { number: index + 1 })} // Reuse key
-                     />
-                   ))}
-                 </div>
-               </>
-             )}
-           </div>
-         )}
-
-        {/* Project Description */}
+        {/* Project Description - Moved up for SUMO project */}
         <div className="bg-gray-900/50 backdrop-blur rounded-lg p-6 border border-gray-800 mb-8">
           <div className="prose prose-invert max-w-none">
-             {/* Use translated longDescription, allowing HTML */}
             <div className="whitespace-pre-line text-gray-300" dangerouslySetInnerHTML={{ __html: project.longDescription }}></div>
           </div>
         </div>
+
+        {/* SUMO Project Gallery (Side-by-Side) */}
+        {slug === 'traffic-simulation' && project.images && project.images.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+            {project.images.map((img, index) => (
+              <div
+                key={index}
+                className="relative group cursor-pointer overflow-hidden rounded-lg border-2 border-transparent hover:border-[#00e1ff] transition-all duration-300"
+                onClick={() => openLightbox(index)}
+              >
+                <img
+                  src={img}
+                  alt={`Screenshot ${index + 1}`}
+                  className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                  <svg className="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        {/* Image Gallery - Keep conditional rendering logic (For other projects or Personal Portfolio if it had images) */}
+        {slug !== 'personal-portfolio' && slug !== 'traffic-simulation' && project.images && project.images.length > 0 && (
+          <div className="relative aspect-w-16 aspect-h-9 mb-8 rounded-lg overflow-hidden">
+            <img
+              src={project.images[currentImageIndex]}
+              alt={t('projects.screenshotAlt', { title: project.title, number: currentImageIndex + 1 })} // Reuse key
+              className="w-full h-full object-cover"
+            />
+            {project.images.length > 1 && (
+              <>
+                <button
+                  onClick={prevImage}
+                  className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors duration-300"
+                  aria-label={t('projects.prevImageAria')} // Reuse key
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+                </button>
+                <button
+                  onClick={nextImage}
+                  className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors duration-300"
+                  aria-label={t('projects.nextImageAria')} // Reuse key
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
+                </button>
+                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+                  {project.images.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => setCurrentImageIndex(index)}
+                      className={`w-2 h-2 rounded-full transition-colors duration-300 ${index === currentImageIndex ? 'bg-[#00e1ff]' : 'bg-white/50'
+                        }`}
+                      aria-label={t('projects.goToImageAria', { number: index + 1 })} // Reuse key
+                    />
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+        )}
+
+        {/* Project Description (Rendered above for SUMO, kept here for others if needed structure changes, but for now we moved it up globally or conditionally?) 
+            Actually, let's keep it here for non-SUMO projects if we want different layouts, 
+            OR since we moved it up generally, we remove it from here to avoid duplication. 
+            The user asked for Description -> Images for SUMO. 
+            Let's conditionally hide this one if it's already shown above? 
+            Or better, let's just move it up for ALL projects as it's a good standard. 
+            I already added it above. So I will REMOVE this block. 
+        */}
 
         {/* Key Features */}
         <div className="mb-12">
@@ -147,11 +221,11 @@ const ProjectDetailPage = () => {
           <h2 className="text-2xl font-bold text-white mb-4 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">{t('projectDetail.challengesTitle')}</h2>
           <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 border border-gray-800">
             <ul className="space-y-2">
-               {/* Map over translated challenges array */}
+              {/* Map over translated challenges array */}
               {Array.isArray(project.challenges) && project.challenges.map((challenge, index) => (
                 <li key={index} className="flex items-start text-gray-300">
                   <svg className="w-6 h-6 text-[#00e1ff] mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-                   {/* Render challenge text, allowing HTML */}
+                  {/* Render challenge text, allowing HTML */}
                   <span dangerouslySetInnerHTML={{ __html: challenge }} />
                 </li>
               ))}
@@ -198,6 +272,16 @@ const ProjectDetailPage = () => {
           </div>
         )}
       </div>
+      {/* Lightbox Modal */}
+      {isLightboxOpen && (
+        <Lightbox
+          images={project.images}
+          currentIndex={currentImageIndex}
+          onClose={() => setIsLightboxOpen(false)}
+          onNext={nextImage}
+          onPrev={prevImage}
+        />
+      )}
     </div>
   );
 };

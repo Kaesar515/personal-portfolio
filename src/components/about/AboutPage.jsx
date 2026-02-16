@@ -39,12 +39,9 @@ const AboutPage = () => {
           <div className="prose prose-lg text-gray-200 max-w-none">
             <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 border border-gray-800 space-y-4">
               <p>{t('about.paragraph1')}</p>
-              <p>
-                {t('about.paragraph2_part1')}{/*
-                */} React, Tailwind CSS, {t('about.paragraph2_part2')} Canvas API.{/*
-                */} {t('about.paragraph2_part3')} TCM Security {t('about.paragraph2_part4')} Linux {t('about.paragraph2_part5')}
-              </p>
+              <p>{t('about.paragraph2')}</p>
               <p>{t('about.paragraph3')}</p>
+              <p>{t('about.paragraph4')}</p>
               <p className="text-[#00e1ff] font-semibold">{t('about.tagline')}</p>
               <div className="pt-4 border-t border-gray-700/50">
                 <a
