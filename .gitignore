@@ -27,3 +27,18 @@ dist-ssr
 .env
 .env.*
 !.env.example
+
+# Analysis and reports
+audit.json
+audit_report.txt
+audit.txt
+diff.txt
+eslint_debug.txt
+eslint_debug.txt.*
+*.log
+vercel-build-troubleshooting.md
+vercel-deployment-solution-report.md
+# Analysis artifacts
+brain/
+
+
