@@ -22,9 +22,10 @@
     "title1": "Über",
     "title2": "Mich",
     "paragraph1": "Ich studiere Informatik an der Frankfurt University of Applied Sciences mit praktischem Schwerpunkt auf Softwareentwicklung und IT-Sicherheit. Kürzlich habe ich im Rahmen eines Universitätsprojekts eine Java-basierte Verkehrssimulation mit SUMO mitentwickelt. Dabei war ich an der Konzeption, Implementierung der Simulationslogik sowie der Systemintegration beteiligt. Das Projekt wurde mit einer sehr guten Bewertung abgeschlossen.",
-    "paragraph2": "Ursprünglich komme ich aus dem medizinischen Bereich. Nach meinem Umzug nach Deutschland habe ich mich bewusst für die Informatik entschieden und meine Leidenschaft für strukturierte, logikorientierte Systeme entdeckt. Diese Portfolio-Website habe ich eigenständig mit React und Tailwind CSS entwickelt und erweitere kontinuierlich meine Kenntnisse in Java, Linux und Cybersecurity.",
-    "paragraph3": "Neben meinem Studium engagiere ich mich ehrenamtlich als Turntrainer für Mädchen im Alter von 9 bis 12 Jahren. Dort übernehme ich Verantwortung, fördere Teamgeist und arbeite strukturiert mit jungen Sportlerinnen zusammen.",
-    "paragraph4": "Ich lege Wert auf Disziplin, kontinuierliche Weiterentwicklung und darauf, technisch saubere und nachhaltige Lösungen zu entwickeln.",
+    "paragraph2": "Zusätzlich arbeite ich als Tutor für C-Programmierung an der Universität und unterstütze Studierende dabei, grundlegende Programmierkonzepte sowie Problemlösungsstrategien zu verstehen.",
+    "paragraph3": "Ursprünglich komme ich aus dem medizinischen Bereich. Nach meinem Umzug nach Deutschland habe ich mich bewusst für die Informatik entschieden und meine Leidenschaft für strukturierte, logikorientierte Systeme entdeckt. Diese Portfolio-Website habe ich eigenständig mit React und Tailwind CSS entwickelt und erweitere kontinuierlich meine Kenntnisse in Java, Linux und Cybersecurity.",
+    "paragraph4": "Neben meinem Studium engagiere ich mich ehrenamtlich als Turntrainer für Mädchen im Alter von 9 bis 12 Jahren. Dort übernehme ich Verantwortung, fördere Teamgeist und arbeite strukturiert mit jungen Sportlerinnen zusammen.",
+    "paragraph5": "Ich lege Wert auf Disziplin, kontinuierliche Weiterentwicklung und darauf, technisch saubere und nachhaltige Lösungen zu entwickeln.",
     "tagline": "Lassen Sie uns gemeinsam etwas Sinnvolles schaffen.",
     "linkedinLink": "Mehr über mich auf LinkedIn",
     "fluentTitle": "Spricht Fließend",
@@ -148,6 +149,10 @@
           "Entwurf klarer Abstraktionsschichten zur Vermeidung enger Kopplung zwischen Simulationslogik und Anwendungscode",
           "Synchronisation von Zustandsdaten in einer nebenläufigen Umgebung",
           "Strukturierte Zusammenarbeit in einem technisch anspruchsvollen Teamprojekt"
+        ],
+        "imageDescriptions": [
+          "Programm-Dashboard",
+          "Beenden des Programms"
         ]
       }
     }

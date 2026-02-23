@@ -68,6 +68,7 @@ const ProjectDetailPage = () => {
     longDescription: t(`projectDetails.${slug}.detail.longDescription`),
     features: t(`projectDetails.${slug}.detail.features`, { returnObjects: true }) || [],
     challenges: t(`projectDetails.${slug}.detail.challenges`, { returnObjects: true }) || [],
+    imageDescriptions: t(`projectDetails.${slug}.detail.imageDescriptions`, { returnObjects: true }) || [],
   } : null;
 
   useEffect(() => {
@@ -132,19 +133,27 @@ const ProjectDetailPage = () => {
         {slug === 'traffic-simulation' && project.images && project.images.length > 0 && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
             {project.images.map((img, index) => (
-              <div
-                key={index}
-                className="relative group cursor-pointer overflow-hidden rounded-lg border-2 border-transparent hover:border-[#00e1ff] transition-all duration-300"
-                onClick={() => openLightbox(index)}
-              >
-                <img
-                  src={img}
-                  alt={`Screenshot ${index + 1}`}
-                  className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
-                  <svg className="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+              <div key={index} className="flex flex-col">
+                <div
+                  className="relative group cursor-pointer overflow-hidden rounded-lg border-2 border-transparent hover:border-[#00e1ff] transition-all duration-300"
+                  onClick={() => openLightbox(index)}
+                >
+                  <img
+                    src={img}
+                    alt={`Screenshot ${index + 1}`}
+                    className="w-full h-64 object-cover transform group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
+                    <svg className="w-10 h-10 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300 drop-shadow-lg" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
+                  </div>
                 </div>
+                {project.imageDescriptions && project.imageDescriptions[index] && (
+                  <div className="mt-3 bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-lg p-3 text-center">
+                    <p className="text-gray-400 text-sm italic">
+                      {project.imageDescriptions[index]}
+                    </p>
+                  </div>
+                )}
               </div>
             ))}
           </div>

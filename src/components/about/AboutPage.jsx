@@ -42,6 +42,7 @@ const AboutPage = () => {
               <p>{t('about.paragraph2')}</p>
               <p>{t('about.paragraph3')}</p>
               <p>{t('about.paragraph4')}</p>
+              <p>{t('about.paragraph5')}</p>
               <p className="text-[#00e1ff] font-semibold">{t('about.tagline')}</p>
               <div className="pt-4 border-t border-gray-700/50">
                 <a

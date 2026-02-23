@@ -22,9 +22,10 @@
     "title1": "About",
     "title2": "Me",
     "paragraph1": "I am a Computer Science student at Frankfurt University of Applied Sciences with a practical focus on software development and cybersecurity. Recently, I worked on a university Java project involving a traffic simulation using SUMO. I contributed to the system design, implementation of simulation logic, and integration of components. The project was completed with a very strong evaluation.",
-    "paragraph2": "Originally trained in medicine, I transitioned into computer science after relocating to Germany and discovered my interest in building structured, logic-driven systems. I designed and developed this portfolio website independently using React and Tailwind CSS, and I continuously expand my skills in Java, Linux, and cybersecurity.",
-    "paragraph3": "Alongside my academic work, I volunteer as a gymnastics trainer for girls aged 9 to 12, where I take responsibility, foster teamwork, and guide young athletes in a structured environment.",
-    "paragraph4": "I value discipline, continuous improvement, and the development of technically sound and sustainable solutions.",
+    "paragraph2": "In addition, I work as a tutor for C programming at the university, supporting fellow students in understanding core programming concepts and problem-solving techniques.",
+    "paragraph3": "Originally trained in medicine, I transitioned into computer science after relocating to Germany and discovered my interest in building structured, logic-driven systems. I designed and developed this portfolio website independently using React and Tailwind CSS, and I continuously expand my skills in Java, Linux, and cybersecurity.",
+    "paragraph4": "Alongside my academic work, I volunteer as a gymnastics trainer for girls aged 9 to 12, where I take responsibility, foster teamwork, and guide young athletes in a structured environment.",
+    "paragraph5": "I value discipline, continuous improvement, and the development of technically sound and sustainable solutions.",
     "tagline": "Let's build something meaningful together.",
     "linkedinLink": "More about me on LinkedIn",
     "fluentTitle": "Fluent In",
@@ -148,6 +149,10 @@
           "Designing clean abstraction layers to avoid tightly coupled simulation logic",
           "Ensuring thread safety without sacrificing performance",
           "Coordinating multiple components in a team-based development environment"
+        ],
+        "imageDescriptions": [
+          "Program Dashboard",
+          "Closing the program"
         ]
       }
     }
