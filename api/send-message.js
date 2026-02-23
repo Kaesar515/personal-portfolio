@@ -5,7 +5,7 @@
 
 import { Resend } from 'resend';
 import dotenv from 'dotenv';
-import path from 'path';
+import path from 'path'; // eslint-disable-line no-unused-vars
 
 // Determine the correct .env file path based on NODE_ENV
 const envPath = process.env.NODE_ENV === 'production'
@@ -26,12 +26,12 @@ dotenv.config({ path: envPath });
 function escapeHtml(unsafe) {
   if (!unsafe) return ''; // Return empty string if input is null or undefined
   return unsafe
-       .toString() // Ensure it's a string
-       .replace(/&/g, "&amp;")
-       .replace(/</g, "&lt;")
-       .replace(/>/g, "&gt;")
-       .replace(/"/g, "&quot;")
-       .replace(/'/g, "&#039;");
+    .toString() // Ensure it's a string
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
 }
 
 // Get environment variables
@@ -113,12 +113,12 @@ export default async function handler(req, res) {
   const sanitizedMessage = escapeHtml(message);
 
   if (!toEmail) {
-      console.error('TO_EMAIL_ADDRESS environment variable is not set.');
-      return res.status(500).json({ success: false, message: 'Server configuration error.' });
+    console.error('TO_EMAIL_ADDRESS environment variable is not set.');
+    return res.status(500).json({ success: false, message: 'Server configuration error.' });
   }
-   if (!RESEND_API_KEY_FROM_ENV) {
-      console.error('RESEND_API_KEY environment variable is not set.');
-      return res.status(500).json({ success: false, message: 'Server configuration error.' });
+  if (!RESEND_API_KEY_FROM_ENV) {
+    console.error('RESEND_API_KEY environment variable is not set.');
+    return res.status(500).json({ success: false, message: 'Server configuration error.' });
   }
 
 
@@ -143,8 +143,8 @@ export default async function handler(req, res) {
 
     // Check if Resend returned an error object within the data
     if (data.error) {
-        console.error('Resend API Error:', data.error);
-        return res.status(500).json({ success: false, message: data.error.message || 'Failed to send email via Resend.' });
+      console.error('Resend API Error:', data.error);
+      return res.status(500).json({ success: false, message: data.error.message || 'Failed to send email via Resend.' });
     }
 
     // Assuming success if no error is present in the response (Resend might return data even on success)

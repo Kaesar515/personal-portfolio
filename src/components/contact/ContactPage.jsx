@@ -33,12 +33,12 @@ const ContactPage = () => {
     const email = 'contact@aliajib.com';
     try {
       // Try modern clipboard API first
-      await navigator.clipboard.writeText(email);
+      await window.navigator.clipboard.writeText(email);
       setCopySuccess(true);
-      console.log('Email copied using navigator.clipboard');
+      console.log('Email copied using window.navigator.clipboard');
       setTimeout(() => setCopySuccess(false), 2000);
     } catch (err) {
-      console.error('navigator.clipboard failed: ', err);
+      console.error('window.navigator.clipboard failed: ', err);
       // Fallback using document.execCommand
       try {
         const textArea = document.createElement('textarea');

@@ -4,7 +4,7 @@ import express from 'express';
 import cors from 'cors';
 import { Resend } from 'resend';
 import dotenv from 'dotenv';
-import path from 'path';
+import path from 'path'; // eslint-disable-line no-unused-vars
 
 // Load environment variables from .env.development.local
 // Load environment variables
@@ -17,21 +17,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // Middleware
-const allowedOrigins = [
-  'http://localhost:5173', // Vite dev server
-  'https://personal-portfolio-kaesar515.vercel.app', // Example prod domain
-  // Add other allowed domains here
-];
-
-app.use(cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  }
-}));
+app.use(cors()); // Allow all origins for development and ease of use
 app.use(express.json()); // Parse JSON request bodies
 
 // --- Replicated Logic from api/send-message.js ---
