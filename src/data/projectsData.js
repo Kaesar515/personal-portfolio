@@ -1,5 +1,6 @@
 import portfolioCardImage from '../assets/images/projects/homepp.jpg';
 import sumoSimulationImage from '../assets/images/projects/sumo_simulation_gui.png';
+import sumoSimulationGuiClose from '../assets/images/projects/sumo_simulation_gui_close.png';
 
 export const baseProjects = [
     {
@@ -7,15 +8,19 @@ export const baseProjects = [
         titleKey: "projectDetails.personal-portfolio.title",
         descriptionKey: "projectDetails.personal-portfolio.description",
         technologies: ["React.js", "Vite", "Tailwind CSS", "HTML5", "CSS3", "JavaScript", "Canvas API", "Git"],
+        tools: ["VS Code", "Linux", "Windows", "Cursor", "Mobile Dev Environment", "Gemini AI API"],
         githubUrl: "https://github.com/Kaesar515/personal-portfolio",
-        image: portfolioCardImage
+        image: portfolioCardImage,
+        images: []
     },
     {
         slug: "traffic-simulation",
         titleKey: "projectDetails.traffic-simulation.title",
         descriptionKey: "projectDetails.traffic-simulation.description",
         technologies: ["Java", "SUMO", "TraCI API", "OOP", "Concurrency", "Git"],
+        tools: ["IntelliJ IDEA", "GitHub", "Linux", "Windows"],
         githubUrl: "https://github.com/lilsemy/SUMO_Group4",
-        image: sumoSimulationImage
+        image: sumoSimulationImage,
+        images: [sumoSimulationImage, sumoSimulationGuiClose]
     }
 ];

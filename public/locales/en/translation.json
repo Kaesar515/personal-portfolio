@@ -161,11 +161,13 @@
   "projectDetail": {
     "notFound": "Project not found",
     "backButton": "← Back to Projects",
-    "backButtonShort": "Back",
+    "backToProjectsOverview": "← All Projects",
     "featuresTitle": "What I Did",
     "challengesTitle": "Challenges I Solved",
     "techTitle": "Tech Used",
     "toolsTitle": "Tool Used",
+    "nextProject": "Next Project",
+    "prevProject": "Previous Project",
     "viewOnGithub": "View Code on GitHub"
   },
   "contact": {

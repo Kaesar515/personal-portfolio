@@ -9,8 +9,10 @@ const Navbar = () => {
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isProjectsHovered, setIsProjectsHovered] = useState(false);
+  const [isMobileProjectsOpen, setIsMobileProjectsOpen] = useState(false);
   const [isNavigating, setIsNavigating] = useState(false);
   const dropdownTimeout = useRef(null);
+  const navRef = useRef(null);
 
   // Trigger loading bar on route change
   useEffect(() => {
@@ -22,8 +24,26 @@ const Navbar = () => {
   // Handle clicking a project in dropdown - ensure it closes
   const handleProjectClick = () => {
     setIsProjectsHovered(false);
+    setIsMobileProjectsOpen(false);
     setIsMenuOpen(false);
   };
+
+  // Close menus when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (navRef.current && !navRef.current.contains(event.target)) {
+        setIsMenuOpen(false);
+        setIsMobileProjectsOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMenuOpen]);
 
   const handleProjectsMouseEnter = () => {
     if (dropdownTimeout.current) clearTimeout(dropdownTimeout.current);
@@ -46,7 +66,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-black bg-opacity-80 backdrop-blur-md z-50 border-b border-cyan-500/30">
+    <nav ref={navRef} className="fixed top-0 left-0 w-full bg-black bg-opacity-80 backdrop-blur-md z-50 border-b border-cyan-500/30">
       {/* Top Loading Bar */}
       <div
         className={`absolute top-0 left-0 h-[2px] bg-cyan-400 transition-all duration-700 ease-out z-[60] ${isNavigating ? 'w-full opacity-100' : 'w-0 opacity-0'
@@ -201,7 +221,47 @@ const Navbar = () => {
           </div>
           <MobileNavLink to="/" onClick={toggleMenu}>{t('nav.home')}</MobileNavLink>
           <MobileNavLink to="/#about" onClick={toggleMenu}>{t('nav.about')}</MobileNavLink>
-          <MobileNavLink to="/#projects" onClick={toggleMenu}>{t('nav.projects')}</MobileNavLink>
+
+          {/* Mobile Projects Toggle */}
+          <div>
+            <button
+              onClick={() => setIsMobileProjectsOpen(!isMobileProjectsOpen)}
+              className="w-full flex items-center justify-between px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-cyan-400 hover:bg-gray-900 transition-all duration-300"
+            >
+              <span>{t('nav.projects')}</span>
+              <svg
+                className={`w-4 h-4 transition-transform duration-300 ${isMobileProjectsOpen ? 'rotate-180' : ''}`}
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            <div className={`overflow-hidden transition-all duration-300 ${isMobileProjectsOpen ? 'max-h-64 opacity-100 mt-1' : 'max-h-0 opacity-0'}`}>
+              <div className="pl-4 space-y-1 bg-gray-900/30 rounded-lg py-1">
+                <a
+                  href="/#projects"
+                  onClick={handleProjectClick}
+                  className="block px-3 py-2 text-sm text-cyan-400 font-bold hover:text-cyan-300 transition-colors"
+                >
+                  {t('projects.viewAll')}
+                </a>
+                {baseProjects.map((project) => (
+                  <Link
+                    key={project.slug}
+                    to={`/projects/${project.slug}`}
+                    onClick={handleProjectClick}
+                    className="block px-3 py-2 text-sm text-gray-400 hover:text-cyan-400 transition-colors"
+                  >
+                    {t(project.titleKey)}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          </div>
+
           <MobileNavLink to="/#contact" onClick={toggleMenu}>{t('nav.contact')}</MobileNavLink>
         </div>
       </div>

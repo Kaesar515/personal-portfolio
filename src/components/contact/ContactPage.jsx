@@ -95,9 +95,9 @@ const ContactPage = () => {
       if (!response.ok) {
         let errorData;
         try {
-            errorData = await response.json();
+          errorData = await response.json();
         } catch (parseError) {
-            // Ignore if response is not JSON
+          // Ignore if response is not JSON
         }
         throw new Error(errorData?.message || `HTTP error! status: ${response.status}`);
       }
@@ -111,7 +111,7 @@ const ContactPage = () => {
           setSubmitSuccess(false);
         }, 5000);
       } else {
-         throw new Error(result.message || 'An unexpected error occurred.');
+        throw new Error(result.message || 'An unexpected error occurred.');
       }
 
     } catch (error) {

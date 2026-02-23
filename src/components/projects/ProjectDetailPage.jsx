@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import sumoSimulationGui from '../../assets/images/projects/sumo_simulation_gui.png';
-import sumoSimulationGuiClose from '../../assets/images/projects/sumo_simulation_gui_close.png';
+import { baseProjects } from '../../data/projectsData';
 
 // Lightbox Component
 const Lightbox = ({ images, currentIndex, onClose, onNext, onPrev }) => {
@@ -35,36 +34,25 @@ const Lightbox = ({ images, currentIndex, onClose, onNext, onPrev }) => {
 };
 
 
-// Base data structure - non-translatable parts
-const projectsBaseData = {
-  'personal-portfolio': {
-    // Translatable keys will be used to fetch text
-    technologies: ["React.js", "Vite", "Tailwind CSS", "HTML5", "CSS3", "JavaScript", "Canvas API", "Git"],
-    tools: ["VS Code", "Linux", "Windows", "Cursor", "mobile development environment", "Gemini AI API"],
-    images: [], // We will add images later if needed
-    githubUrl: "https://github.com/Kaesar515/personal-portfolio",
-  },
-  'traffic-simulation': {
-    technologies: ["Java", "SUMO", "TraCI API", "OOP", "Concurrency", "Git"],
-    tools: ["IntelliJ IDEA", "GitHub", "Linux", "Windows"],
-    images: [sumoSimulationGui, sumoSimulationGuiClose],
-    githubUrl: "https://github.com/lilsemy/SUMO_Group4",
-  }
-  // Add base data for other projects here
-};
+// Local data removed - using centralized data from baseProjects
 
 const ProjectDetailPage = () => {
   const { slug } = useParams();
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
 
-  const baseProject = projectsBaseData[slug];
+  // Find index and build project data
+  const currentIndex = baseProjects.findIndex(p => p.slug === slug);
+  const baseProject = baseProjects[currentIndex];
 
-  // Construct project object using the fetched values
+  const prevProject = currentIndex > 0 ? baseProjects[currentIndex - 1] : null;
+  const nextProject = currentIndex < baseProjects.length - 1 ? baseProjects[currentIndex + 1] : null;
+
   const project = baseProject ? {
     ...baseProject,
-    title: t(`projectDetails.${slug}.title`),
+    title: t(baseProject.titleKey),
     longDescription: t(`projectDetails.${slug}.detail.longDescription`),
     features: t(`projectDetails.${slug}.detail.features`, { returnObjects: true }) || [],
     challenges: t(`projectDetails.${slug}.detail.challenges`, { returnObjects: true }) || [],
@@ -111,14 +99,35 @@ const ProjectDetailPage = () => {
   return (
     <div className="min-h-screen py-16 sm:py-24 custom-scrollbar">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        <button
-          type="button"
-          onClick={() => window.history.back()}
-          className="inline-flex items-center text-[#00e1ff] hover:text-[#00f2ff] transition-colors duration-300 mb-8 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)] focus:outline-none focus:ring-2 focus:ring-cyan-500/50 rounded"
-        >
-          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
-          {t('projectDetail.backButtonShort')}
-        </button>
+        {/* Top Navigation Bar */}
+        <div className="flex items-center justify-between mb-8">
+          <Link
+            to="/#projects"
+            className="inline-flex items-center text-[#00e1ff] hover:text-[#00f2ff] transition-colors duration-300 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)] group"
+          >
+            <svg className="w-5 h-5 mr-1 transform group-hover:-translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" /></svg>
+            {t('projectDetail.backToProjectsOverview')}
+          </Link>
+
+          <div className="flex space-x-4">
+            {prevProject && (
+              <Link
+                to={`/projects/${prevProject.slug}`}
+                className="text-gray-400 hover:text-[#00e1ff] transition-colors text-sm"
+              >
+                ← {t('projectDetail.prevProject')}
+              </Link>
+            )}
+            {nextProject && (
+              <Link
+                to={`/projects/${nextProject.slug}`}
+                className="text-gray-400 hover:text-[#00e1ff] transition-colors text-sm"
+              >
+                {t('projectDetail.nextProject')} →
+              </Link>
+            )}
+          </div>
+        </div>
 
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-8 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">{project.title}</h1>
 
@@ -266,20 +275,59 @@ const ProjectDetailPage = () => {
           </div>
         </div>
 
-        {/* View the code section - Removed duplicate, keep GitHub link if available */}
+        {/* View the code section */}
         {project.githubUrl && (
-          <div className="flex justify-center mb-12">
+          <div className="flex justify-center mb-16">
             <a
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-6 py-3 text-base font-medium rounded-md text-white bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-[#00e1ff] transition-all duration-300"
+              className="inline-flex items-center px-6 py-3 text-base font-medium rounded-md text-white bg-gray-900/60 backdrop-blur-sm hover:bg-gray-800 border border-gray-700 hover:border-[#00e1ff] transition-all duration-300 group"
             >
-              <svg className="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.137 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z" clipRule="evenodd" /></svg>
+              <svg className="w-5 h-5 mr-2 text-gray-400 group-hover:text-[#00e1ff]" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.137 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z" clipRule="evenodd" /></svg>
               {t('projectDetail.viewOnGithub')}
             </a>
           </div>
         )}
+
+        {/* Bottom Modern Navigation with 3D Lift */}
+        <div className="mt-16 pt-12 border-t border-gray-800/50 flex flex-col sm:flex-row items-center justify-between gap-10">
+          <div className="w-full sm:w-auto">
+            {prevProject ? (
+              <Link
+                to={`/projects/${prevProject.slug}`}
+                className="group flex flex-col items-start p-6 rounded-2xl bg-cyan-500/5 backdrop-blur-md border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-500/10 transition-all duration-500 w-full sm:min-w-[240px] shadow-[0_6px_0_0_rgba(0,225,255,0.2)] hover:shadow-[0_12px_0_0_rgba(0,225,255,0.3)] hover:-translate-y-2 active:translate-y-0 active:shadow-none relative overflow-hidden"
+              >
+                {/* Subtle animated gradient overlay - universal reverse sweep (R to L) */}
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/10 to-cyan-500/0 translate-x-[100%] animate-shine-sweep-reverse transition-transform duration-1000 ease-in-out" />
+
+                <span className="text-xs text-cyan-500/70 mb-2 group-hover:text-cyan-400 transition-colors uppercase tracking-[0.2em] font-bold">{t('projectDetail.prevProject')}</span>
+                <div className="flex items-center text-white text-lg font-bold group-hover:text-cyan-400 relative z-10">
+                  <svg className="w-6 h-6 mr-3 transform group-hover:-translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" /></svg>
+                  {t(prevProject.titleKey)}
+                </div>
+              </Link>
+            ) : <div className="hidden sm:block w-[240px]" />}
+          </div>
+
+          <div className="w-full sm:w-auto">
+            {nextProject ? (
+              <Link
+                to={`/projects/${nextProject.slug}`}
+                className="group flex flex-col items-end p-6 rounded-2xl bg-cyan-500/5 backdrop-blur-md border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-500/10 transition-all duration-500 w-full sm:min-w-[240px] shadow-[0_6px_0_0_rgba(0,225,255,0.2)] hover:shadow-[0_12px_0_0_rgba(0,225,255,0.3)] hover:-translate-y-2 active:translate-y-0 active:shadow-none relative overflow-hidden"
+              >
+                {/* Subtle animated gradient overlay - universal sweep */}
+                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/10 to-cyan-500/0 translate-x-[-100%] animate-shine-sweep transition-transform duration-1000 ease-in-out" />
+
+                <span className="text-xs text-cyan-500/70 mb-2 group-hover:text-cyan-400 transition-colors uppercase tracking-[0.2em] font-bold">{t('projectDetail.nextProject')}</span>
+                <div className="flex items-center text-white text-lg font-bold group-hover:text-cyan-400 relative z-10">
+                  {t(nextProject.titleKey)}
+                  <svg className="w-6 h-6 ml-3 transform group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" /></svg>
+                </div>
+              </Link>
+            ) : <div className="hidden sm:block w-[240px]" />}
+          </div>
+        </div>
       </div>
       {/* Lightbox Modal */}
       {isLightboxOpen && (
