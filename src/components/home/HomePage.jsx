@@ -80,14 +80,14 @@ const HomePage = () => {
                   />
                 </div>
                 <div className="flex flex-wrap justify-center gap-4">
-                    <ScrollLinkButton href="#projects">{t('home.viewProjects')}</ScrollLinkButton>
-                    <a
-                      href="#about"
-                      className={`${learnMoreBaseClasses} ${learnMorePaddingClasses} ${learnMoreTextSizeClasses}`}
-                    >
-                      <span className="relative z-10">{t('home.learnMore')}</span>
-                    </a>
-                    <ScrollLinkButton href="#contact">{t('home.getInTouch')}</ScrollLinkButton>
+                  <ScrollLinkButton href="#projects">{t('home.viewProjects')}</ScrollLinkButton>
+                  <a
+                    href="#about"
+                    className={`${learnMoreBaseClasses} ${learnMorePaddingClasses} ${learnMoreTextSizeClasses}`}
+                  >
+                    <span className="relative z-10">{t('home.learnMore')}</span>
+                  </a>
+                  <ScrollLinkButton href="#contact">{t('home.getInTouch')}</ScrollLinkButton>
                 </div>
               </div>
             </div>
@@ -98,8 +98,8 @@ const HomePage = () => {
       {/* Separator Line - Adjusted for mobile (35% shorter) */}
       <div className="h-1.5 w-40 sm:w-64 mx-auto my-4 bg-[#00e1ff]/60 rounded-full shadow-md shadow-[#00e1ff]/40"></div>
 
-      <section 
-        id="about" 
+      <section
+        id="about"
         className="py-4 md:py-8"
       >
         <AboutPage />
@@ -108,8 +108,8 @@ const HomePage = () => {
       {/* Separator Line - Adjusted for mobile (35% shorter) */}
       <div className="h-1.5 w-40 sm:w-64 mx-auto my-4 bg-[#00e1ff]/60 rounded-full shadow-md shadow-[#00e1ff]/40"></div>
 
-      <section 
-        id="projects" 
+      <section
+        id="projects"
         className="py-4 md:py-8"
       >
         <ProjectsPage />
@@ -118,8 +118,8 @@ const HomePage = () => {
       {/* Separator Line - Adjusted for mobile (35% shorter) */}
       <div className="h-1.5 w-40 sm:w-64 mx-auto my-4 bg-[#00e1ff]/60 rounded-full shadow-md shadow-[#00e1ff]/40"></div>
 
-      <section 
-        id="contact" 
+      <section
+        id="contact"
         className="py-4 md:py-8"
       >
         <ContactPage />
