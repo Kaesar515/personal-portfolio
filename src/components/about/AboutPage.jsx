@@ -26,7 +26,7 @@ const AboutPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:items-start mb-12">
           {/* Left Column: Image */}
           <div className="flex justify-center">
-            <div className="w-[60%] aspect-w-4 aspect-h-5 rounded-lg overflow-hidden shadow-xl bg-gray-900/50 backdrop-blur-sm border border-gray-800">
+            <div className="w-[60%] aspect-w-4 aspect-h-5 rounded-lg overflow-hidden shadow-xl bg-gray-900/50 backdrop-blur-3xl border border-gray-800">
               <img
                 src={profilePhoto}
                 alt={t('altTexts.aliAjib')}
@@ -37,7 +37,7 @@ const AboutPage = () => {
 
           {/* Right Column: About Me Prose */}
           <div className="prose prose-lg text-gray-200 max-w-none">
-            <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 border border-gray-800 space-y-4">
+            <div className="bg-gray-900/50 backdrop-blur-3xl rounded-lg p-6 border border-gray-800 space-y-4">
               <p>{t('about.paragraph1')}</p>
               <p>{t('about.paragraph2')}</p>
               <p>{t('about.paragraph3')}</p>
@@ -71,7 +71,7 @@ const AboutPage = () => {
               {Array.isArray(languages) && languages.map((language) => (
                 <div
                   key={language.key}
-                  className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-4 border border-gray-800 text-center hover:border-[#00e1ff] transition-colors duration-300"
+                  className="bg-gray-900/50 backdrop-blur-3xl rounded-lg p-4 border border-gray-800 text-center hover:border-[#00e1ff] transition-colors duration-300"
                 >
                   <span className="text-gray-200">{language.label}</span>
                 </div>
@@ -87,7 +87,7 @@ const AboutPage = () => {
               {Array.isArray(skillsList) && skillsList.map((skill) => (
                 <div
                   key={skill.key}
-                  className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-4 border border-gray-800 text-center hover:border-[#00e1ff] transition-colors duration-300"
+                  className="bg-gray-900/50 backdrop-blur-3xl rounded-lg p-4 border border-gray-800 text-center hover:border-[#00e1ff] transition-colors duration-300"
                 >
                   <span className="text-gray-200">{skill.label}</span>
                 </div>

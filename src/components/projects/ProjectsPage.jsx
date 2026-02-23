@@ -45,7 +45,7 @@ const ProjectCard = ({ project }) => {
   return (
     <div
       onClick={handleCardClick}
-      className="block bg-gray-900/50 backdrop-blur-sm rounded-lg overflow-hidden border border-gray-800 hover:border-[#00e1ff] transition-all duration-300 cursor-pointer group hover:-translate-y-1 hover:shadow-lg hover:shadow-[#00e1ff]/10"
+      className="block bg-gray-900/50 backdrop-blur-3xl rounded-lg overflow-hidden border border-gray-800 hover:border-[#00e1ff] transition-all duration-300 cursor-pointer group hover:-translate-y-1 hover:shadow-lg hover:shadow-[#00e1ff]/10"
     >
       {images && images.length > 0 && (
         <div className="relative aspect-w-16 aspect-h-9">

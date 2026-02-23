@@ -16,7 +16,7 @@ const Lightbox = ({ images, currentIndex, onClose, onNext, onPrev }) => {
   }, [onClose, onNext, onPrev]);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-3xl" onClick={onClose}>
       <button className="absolute top-4 right-4 text-white hover:text-[#00e1ff] transition-colors" onClick={onClose}>
         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
       </button>
@@ -132,7 +132,7 @@ const ProjectDetailPage = () => {
         <h1 className="text-4xl md:text-5xl font-bold text-white mb-8 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">{project.title}</h1>
 
         {/* Project Description - Moved up for SUMO project */}
-        <div className="bg-gray-900/50 backdrop-blur rounded-lg p-6 border border-gray-800 mb-8">
+        <div className="bg-gray-900/50 backdrop-blur-3xl rounded-lg p-6 border border-gray-800 mb-8">
           <div className="prose prose-invert max-w-none">
             <div className="whitespace-pre-line text-gray-300" dangerouslySetInnerHTML={{ __html: project.longDescription }}></div>
           </div>
@@ -157,7 +157,7 @@ const ProjectDetailPage = () => {
                   </div>
                 </div>
                 {project.imageDescriptions && project.imageDescriptions[index] && (
-                  <div className="mt-3 bg-gray-900/50 backdrop-blur-sm border border-gray-800/50 rounded-lg p-3 text-center">
+                  <div className="mt-3 bg-gray-900/50 backdrop-blur-3xl border border-gray-800/50 rounded-lg p-3 text-center">
                     <p className="text-gray-400 text-sm italic">
                       {project.imageDescriptions[index]}
                     </p>
@@ -220,7 +220,7 @@ const ProjectDetailPage = () => {
         {/* Key Features */}
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-white mb-4 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">{t('projectDetail.featuresTitle')}</h2>
-          <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 border border-gray-800">
+          <div className="bg-gray-900/50 backdrop-blur-3xl rounded-lg p-6 border border-gray-800">
             <ul className="space-y-2">
               {/* Map over translated features array */}
               {Array.isArray(project.features) && project.features.map((feature, index) => (
@@ -237,7 +237,7 @@ const ProjectDetailPage = () => {
         {/* Challenges & Solutions */}
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-white mb-4 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">{t('projectDetail.challengesTitle')}</h2>
-          <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-6 border border-gray-800">
+          <div className="bg-gray-900/50 backdrop-blur-3xl rounded-lg p-6 border border-gray-800">
             <ul className="space-y-2">
               {/* Map over translated challenges array */}
               {Array.isArray(project.challenges) && project.challenges.map((challenge, index) => (
@@ -256,7 +256,7 @@ const ProjectDetailPage = () => {
           <h2 className="text-2xl font-bold text-white mb-4 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">{t('projectDetail.techTitle')}</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {project.technologies.map((tech) => (
-              <div key={tech} className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-4 border border-gray-800 text-center hover:border-[#00e1ff] transition-colors duration-300">
+              <div key={tech} className="bg-gray-900/50 backdrop-blur-3xl rounded-lg p-4 border border-gray-800 text-center hover:border-[#00e1ff] transition-colors duration-300">
                 <span className="text-gray-200">{tech}</span> {/* Keep tech names untranslated */}
               </div>
             ))}
@@ -268,7 +268,7 @@ const ProjectDetailPage = () => {
           <h2 className="text-2xl font-bold text-white mb-4 [text-shadow:0_1px_6px_rgba(0,0,0,0.9)]">{t('projectDetail.toolsTitle')}</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {project.tools.map((tool) => (
-              <div key={tool} className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-4 border border-gray-800 text-center hover:border-[#00e1ff] transition-colors duration-300">
+              <div key={tool} className="bg-gray-900/50 backdrop-blur-3xl rounded-lg p-4 border border-gray-800 text-center hover:border-[#00e1ff] transition-colors duration-300">
                 <span className="text-gray-200">{tool}</span> {/* Keep tool names untranslated */}
               </div>
             ))}
@@ -282,7 +282,7 @@ const ProjectDetailPage = () => {
               href={project.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center px-6 py-3 text-base font-medium rounded-md text-white bg-gray-900/60 backdrop-blur-sm hover:bg-gray-800 border border-gray-700 hover:border-[#00e1ff] transition-all duration-300 group"
+              className="inline-flex items-center px-6 py-3 text-base font-medium rounded-md text-white bg-gray-900/60 backdrop-blur-3xl hover:bg-gray-800 border border-gray-700 hover:border-[#00e1ff] transition-all duration-300 group"
             >
               <svg className="w-5 h-5 mr-2 text-gray-400 group-hover:text-[#00e1ff]" fill="currentColor" viewBox="0 0 24 24"><path fillRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.137 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z" clipRule="evenodd" /></svg>
               {t('projectDetail.viewOnGithub')}
@@ -296,7 +296,7 @@ const ProjectDetailPage = () => {
             {prevProject ? (
               <Link
                 to={`/projects/${prevProject.slug}`}
-                className="group flex flex-col items-start p-6 rounded-2xl bg-cyan-500/5 backdrop-blur-md border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-500/10 transition-all duration-500 w-full sm:min-w-[240px] shadow-[0_6px_0_0_rgba(0,225,255,0.2)] hover:shadow-[0_12px_0_0_rgba(0,225,255,0.3)] hover:-translate-y-2 active:translate-y-0 active:shadow-none relative overflow-hidden"
+                className="group flex flex-col items-start p-6 rounded-2xl bg-cyan-500/5 backdrop-blur-3xl border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-500/10 transition-all duration-500 w-full sm:min-w-[240px] shadow-[0_6px_0_0_rgba(0,225,255,0.2)] hover:shadow-[0_12px_0_0_rgba(0,225,255,0.3)] hover:-translate-y-2 active:translate-y-0 active:shadow-none relative overflow-hidden"
               >
                 {/* Subtle animated gradient overlay - universal reverse sweep (R to L) */}
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/10 to-cyan-500/0 translate-x-[100%] animate-shine-sweep-reverse transition-transform duration-1000 ease-in-out" />
@@ -314,7 +314,7 @@ const ProjectDetailPage = () => {
             {nextProject ? (
               <Link
                 to={`/projects/${nextProject.slug}`}
-                className="group flex flex-col items-end p-6 rounded-2xl bg-cyan-500/5 backdrop-blur-md border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-500/10 transition-all duration-500 w-full sm:min-w-[240px] shadow-[0_6px_0_0_rgba(0,225,255,0.2)] hover:shadow-[0_12px_0_0_rgba(0,225,255,0.3)] hover:-translate-y-2 active:translate-y-0 active:shadow-none relative overflow-hidden"
+                className="group flex flex-col items-end p-6 rounded-2xl bg-cyan-500/5 backdrop-blur-3xl border border-cyan-500/30 hover:border-cyan-400 hover:bg-cyan-500/10 transition-all duration-500 w-full sm:min-w-[240px] shadow-[0_6px_0_0_rgba(0,225,255,0.2)] hover:shadow-[0_12px_0_0_rgba(0,225,255,0.3)] hover:-translate-y-2 active:translate-y-0 active:shadow-none relative overflow-hidden"
               >
                 {/* Subtle animated gradient overlay - universal sweep */}
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/10 to-cyan-500/0 translate-x-[-100%] animate-shine-sweep transition-transform duration-1000 ease-in-out" />

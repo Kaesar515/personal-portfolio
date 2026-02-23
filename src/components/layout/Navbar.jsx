@@ -66,7 +66,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav ref={navRef} className="fixed top-0 left-0 w-full bg-black bg-opacity-80 backdrop-blur-md z-50 border-b border-cyan-500/30">
+    <nav ref={navRef} className="fixed top-0 left-0 w-full bg-black bg-opacity-80 backdrop-blur-3xl z-50 border-b border-cyan-500/30">
       {/* Top Loading Bar */}
       <div
         className={`absolute top-0 left-0 h-[2px] bg-cyan-400 transition-all duration-700 ease-out z-[60] ${isNavigating ? 'w-full opacity-100' : 'w-0 opacity-0'
@@ -110,7 +110,7 @@ const Navbar = () => {
 
                   {/* Dropdown Menu */}
                   <div
-                    className={`absolute left-0 mt-1 w-64 bg-black/90 backdrop-blur-xl border border-cyan-500/30 rounded-lg shadow-2xl transition-all duration-300 transform ${isProjectsHovered ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'
+                    className={`absolute left-0 mt-1 w-64 bg-black/90 backdrop-blur-3xl border border-cyan-500/30 rounded-lg shadow-2xl transition-all duration-300 transform ${isProjectsHovered ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'
                       }`}
                   >
                     <div className="py-2">

@@ -24,6 +24,10 @@ export default {
           '50%': { boxShadow: '0 0 20px rgba(0, 255, 255, 0.6)' },
         },
       },
+      backdropBlur: {
+        '3xl': '64px',
+        '4xl': '100px',
+      },
     },
   },
   plugins: [],

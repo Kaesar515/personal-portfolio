@@ -140,7 +140,7 @@ const ContactPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Information */}
           <div className="space-y-8">
-            <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-8 border border-gray-800">
+            <div className="bg-gray-900/50 backdrop-blur-3xl rounded-lg p-8 border border-gray-800">
               <h2 className="text-2xl font-bold text-white mb-6">{t('contact.infoTitle')}</h2>
               <div className="space-y-6">
                 {/* Email Item */}
@@ -193,7 +193,7 @@ const ContactPage = () => {
               </div>
             </div>
             {/* Social Links */}
-            <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-8 border border-gray-800">
+            <div className="bg-gray-900/50 backdrop-blur-3xl rounded-lg p-8 border border-gray-800">
               <h2 className="text-2xl font-bold text-white mb-6">{t('contact.connectTitle')}</h2>
               <div className="flex space-x-4">
                 {/* GitHub & LinkedIn links remain the same */}
@@ -220,7 +220,7 @@ const ContactPage = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-8 border border-gray-800">
+          <div className="bg-gray-900/50 backdrop-blur-3xl rounded-lg p-8 border border-gray-800">
             <h2 className="text-2xl font-bold text-white mb-6">{t('contact.formTitle')}</h2>
 
             {submitSuccess && (
