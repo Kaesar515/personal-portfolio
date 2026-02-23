@@ -3,48 +3,77 @@
 /* --- Custom Scrollbar (Dark Theme v13 - Hide Thumb until Scrollbar Hover) --- */
 
 /* Ensure root elements have solid background */
-html, body {
-  background-color: #000; /* Explicit black */
+html,
+body {
+  background-color: #000;
+  /* Explicit black */
 }
 
 /* Firefox base */
-html { 
+html {
   scroll-behavior: smooth;
 }
+
 body {
-  scrollbar-width: thin; /* Using thin for potentially better consistency */
+  scrollbar-width: thin;
+  /* Using thin for potentially better consistency */
   /* thumb color, track color - REVERSED */
-  scrollbar-color: #333 #111; /* Dark Gray thumb, Solid Black track for FF */
+  scrollbar-color: #333 #111;
+  /* Dark Gray thumb, Solid Black track for FF */
 }
 
 /* Webkit base */
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
-  background-color: #111; /* Keep Solid Black background */
-  border-radius: 10px; 
+  background-color: #111;
+  /* Keep Solid Black background */
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent; /* Track remains invisible within scrollbar area */
-  border-radius: 10px; 
+  background: transparent;
+  /* Track remains invisible within scrollbar area */
+  border-radius: 10px;
   margin: 0;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: transparent; /* Thumb is transparent by default */
-  border-radius: 10px; 
-  transition: background-color 0.2s ease-out; 
+  background: transparent;
+  /* Thumb is transparent by default */
+  border-radius: 10px;
+  transition: background-color 0.2s ease-out;
 }
 
 /* Show thumb only when hovering the scrollbar *area* */
 ::-webkit-scrollbar:hover ::-webkit-scrollbar-thumb {
-  background: #333; /* Dark Gray thumb appears */
+  background: #333;
+  /* Dark Gray thumb appears */
 }
 
 /* Subtle hover effect when hovering the thumb *itself* */
 ::-webkit-scrollbar-thumb:hover {
-  background: #444; /* Slightly lighter gray */
+  background: #444;
+  /* Slightly lighter gray */
 }
 
-/* Removed the unused .custom-scrollbar section */
+/* Page Transition Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+main {
+  animation: fadeIn 0.4s ease-in-out forwards;
+  will-change: opacity;
+}
+
+/* Loading Bar Glow */
+.loading-bar-glow {
+  box-shadow: 0 0 10px rgba(0, 225, 255, 0.8), 0 0 20px rgba(0, 225, 255, 0.4);
+}

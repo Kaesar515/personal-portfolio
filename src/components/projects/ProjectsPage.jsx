@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import portfolioCardImage from '../../assets/images/projects/homepp.jpg';
-import sumoSimulationImage from '../../assets/images/projects/sumo_simulation_gui.png';
+import { baseProjects } from '../../data/projectsData';
 
 const ProjectCard = ({ project }) => {
   const { t } = useTranslation();
@@ -126,46 +125,20 @@ const ProjectCard = ({ project }) => {
         </div>
       </div>
     </div>
-
   );
 };
 
 const ProjectsPage = () => {
   const { t } = useTranslation();
 
-  // Define base project data (non-translatable parts + keys)
-  const baseProjects = [
-    {
-      slug: "personal-portfolio",
-      titleKey: "projectDetails.personal-portfolio.title",
-      descriptionKey: "projectDetails.personal-portfolio.description",
-      technologies: ["React.js", "Vite", "Tailwind CSS", "HTML5", "CSS3", "JavaScript", "Canvas API", "Git"],
-      githubUrl: "https://github.com/Kaesar515/personal-portfolio"
-      // Image will be added manually below
-    },
-    {
-      slug: "traffic-simulation",
-      titleKey: "projectDetails.traffic-simulation.title",
-      descriptionKey: "projectDetails.traffic-simulation.description",
-      technologies: ["Java", "SUMO", "TraCI API", "OOP", "Concurrency", "Git"],
-      githubUrl: "https://github.com/lilsemy/SUMO_Group4"
-    }
-  ];
-
   // Construct the final projects array with translated text
   const projects = baseProjects.map(baseProject => {
-    const project = {
+    return {
       ...baseProject,
       title: t(baseProject.titleKey),
       description: t(baseProject.descriptionKey),
+      images: [baseProject.image], // Use the image from projectsData
     };
-    // Manually add image for now
-    if (project.slug === 'personal-portfolio') {
-      project.images = [portfolioCardImage];
-    } else if (project.slug === 'traffic-simulation') {
-      project.images = [sumoSimulationImage];
-    }
-    return project;
   });
 
   return (

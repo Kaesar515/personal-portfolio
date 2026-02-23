@@ -1,11 +1,40 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useRef, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { baseProjects } from '../../data/projectsData';
 import profilePhoto from '../../assets/images/profile/logo.jpg';
 
 const Navbar = () => {
   const { t, i18n } = useTranslation();
+  const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProjectsHovered, setIsProjectsHovered] = useState(false);
+  const [isNavigating, setIsNavigating] = useState(false);
+  const dropdownTimeout = useRef(null);
+
+  // Trigger loading bar on route change
+  useEffect(() => {
+    setIsNavigating(true);
+    const timer = setTimeout(() => setIsNavigating(false), 800);
+    return () => clearTimeout(timer);
+  }, [location.pathname]);
+
+  // Handle clicking a project in dropdown - ensure it closes
+  const handleProjectClick = () => {
+    setIsProjectsHovered(false);
+    setIsMenuOpen(false);
+  };
+
+  const handleProjectsMouseEnter = () => {
+    if (dropdownTimeout.current) clearTimeout(dropdownTimeout.current);
+    setIsProjectsHovered(true);
+  };
+
+  const handleProjectsMouseLeave = () => {
+    dropdownTimeout.current = setTimeout(() => {
+      setIsProjectsHovered(false);
+    }, 150);
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -18,6 +47,11 @@ const Navbar = () => {
 
   return (
     <nav className="fixed top-0 left-0 w-full bg-black bg-opacity-80 backdrop-blur-md z-50 border-b border-cyan-500/30">
+      {/* Top Loading Bar */}
+      <div
+        className={`absolute top-0 left-0 h-[2px] bg-cyan-400 transition-all duration-700 ease-out z-[60] ${isNavigating ? 'w-full opacity-100' : 'w-0 opacity-0'
+          }`}
+      />
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo and Profile */}
@@ -31,7 +65,7 @@ const Navbar = () => {
                 />
               </div>
             </div>
-            <Link 
+            <Link
               to="/"
               onClick={(e) => { window.scrollTo({ top: 0, behavior: 'smooth' }); }}
               className="text-2xl font-bold text-white hover:text-cyan-400 transition-colors duration-300"
@@ -39,17 +73,52 @@ const Navbar = () => {
               <span className="text-cyan-400">A</span>li <span className="text-cyan-400">A</span>jib
             </Link>
           </div>
-          
+
           <div className="flex items-center">
             <div className="hidden md:block">
               <div className="ml-10 flex items-baseline space-x-8">
                 <NavLink to="/">{t('nav.home')}</NavLink>
                 <NavLink to="/#about">{t('nav.about')}</NavLink>
-                <NavLink to="/#projects">{t('nav.projects')}</NavLink>
+
+                {/* Projects with Dropdown */}
+                <div
+                  className="relative group"
+                  onMouseEnter={handleProjectsMouseEnter}
+                  onMouseLeave={handleProjectsMouseLeave}
+                >
+                  <NavLink to="/#projects">{t('nav.projects')}</NavLink>
+
+                  {/* Dropdown Menu */}
+                  <div
+                    className={`absolute left-0 mt-1 w-64 bg-black/90 backdrop-blur-xl border border-cyan-500/30 rounded-lg shadow-2xl transition-all duration-300 transform ${isProjectsHovered ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 -translate-y-2 pointer-events-none'
+                      }`}
+                  >
+                    <div className="py-2">
+                      <a
+                        href="/#projects"
+                        onClick={handleProjectClick}
+                        className="block px-4 py-2 text-sm text-cyan-400 font-bold hover:bg-cyan-500/10 transition-colors border-b border-cyan-500/10 mb-1"
+                      >
+                        {t('projects.viewAll')}
+                      </a>
+                      {baseProjects.map((project) => (
+                        <Link
+                          key={project.slug}
+                          to={`/projects/${project.slug}`}
+                          onClick={handleProjectClick}
+                          className="block px-4 py-2 text-sm text-gray-300 hover:text-cyan-400 hover:bg-cyan-500/10 transition-all duration-200"
+                        >
+                          {t(project.titleKey)}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
                 <NavLink to="/#contact">{t('nav.contact')}</NavLink>
               </div>
             </div>
-            
+
             {/* Desktop Language Switcher */}
             <div className="ml-4 hidden md:flex items-center space-x-1 text-sm">
               <button
@@ -83,9 +152,9 @@ const Navbar = () => {
                 DE
               </button>
             </div>
-            
+
             {/* Hamburger Menu Button */}
-            <div className="md:hidden ml-2"> {/* Added ml-2 for spacing */} 
+            <div className="md:hidden ml-2"> {/* Added ml-2 for spacing */}
               <button
                 onClick={toggleMenu}
                 className="inline-flex items-center justify-center p-2 rounded-md text-cyan-400 hover:text-white hover:bg-gray-900 focus:outline-none"
@@ -140,59 +209,86 @@ const Navbar = () => {
   );
 };
 
-const NavLink = ({ to, children }) => {
-  if (to.startsWith('/#')) {
+const NavLink = ({ to, children, onClick }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleClick = (e) => {
+    if (to.startsWith('/#')) {
+      e.preventDefault();
+      const targetHash = to.substring(1); // e.g., "#about"
+
+      if (location.pathname === '/') {
+        // We are already on home, just scroll
+        const element = document.querySelector(targetHash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        // We are on another page, navigate to home and then the hash
+        navigate(to);
+      }
+    } else if (to === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    if (onClick) onClick(e);
+  };
+
+  const isHash = to.startsWith('/#');
+  const baseClasses = "text-gray-300 hover:text-cyan-400 px-3 py-2 text-sm font-medium relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-cyan-400 after:transition-all after:duration-300 hover:after:w-full cursor-pointer";
+
+  if (isHash) {
     return (
-      <a
-        href={to}
-        className="text-gray-300 hover:text-cyan-400 px-3 py-2 text-sm font-medium relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-cyan-400 after:transition-all after:duration-300 hover:after:w-full"
-      >
+      <a href={to} onClick={handleClick} className={baseClasses}>
         {children}
       </a>
     );
-  } 
-  const handleClick = (e) => {
-    if (to === '/') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-  };
+  }
+
   return (
-    <Link
-      to={to}
-      className="text-gray-300 hover:text-cyan-400 px-3 py-2 text-sm font-medium relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-cyan-400 after:transition-all after:duration-300 hover:after:w-full"
-      onClick={handleClick}
-    >
+    <Link to={to} className={baseClasses} onClick={handleClick}>
       {children}
     </Link>
   );
 };
 
 const MobileNavLink = ({ to, children, onClick }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleMobileClick = (e) => {
+    if (to.startsWith('/#')) {
+      e.preventDefault();
+      const targetHash = to.substring(1);
+
+      if (location.pathname === '/') {
+        const element = document.querySelector(targetHash);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }
+      } else {
+        navigate(to);
+      }
+    } else if (to === '/') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    if (onClick) onClick(e);
+  };
+
+  const baseClasses = "block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-cyan-400 hover:bg-gray-900 transition-all duration-300 cursor-pointer";
+
   if (to.startsWith('/#')) {
     return (
-      <a
-        href={to}
-        className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-cyan-400 hover:bg-gray-900 transition-all duration-300"
-        onClick={onClick}
-      >
+      <a href={to} className={baseClasses} onClick={handleMobileClick}>
         {children}
       </a>
     );
   }
-  const handleMobileClick = (e) => {
-    if (to === '/') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-    if (onClick) {
-      onClick(e);
-    }
-  };
+
   return (
-    <Link
-      to={to}
-      className="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-cyan-400 hover:bg-gray-900 transition-all duration-300"
-      onClick={handleMobileClick}
-    >
+    <Link to={to} className={baseClasses} onClick={handleMobileClick}>
       {children}
     </Link>
   );
