@@ -106,7 +106,16 @@ const Navbar = () => {
                   onMouseEnter={handleProjectsMouseEnter}
                   onMouseLeave={handleProjectsMouseLeave}
                 >
-                  <NavLink to="/#projects">{t('nav.projects')}</NavLink>
+                  <button
+                    type="button"
+                    className="text-gray-300 hover:text-cyan-400 px-3 py-2 text-sm font-medium relative after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-0 after:bg-cyan-400 after:transition-all after:duration-300 hover:after:w-full cursor-pointer"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setIsProjectsHovered(!isProjectsHovered);
+                    }}
+                  >
+                    {t('nav.projects')}
+                  </button>
 
                   {/* Dropdown Menu */}
                   <div

@@ -25,7 +25,7 @@ export default {
         },
       },
       backdropBlur: {
-        '3xl': '64px',
+        '3xl': '06px',
         '4xl': '100px',
       },
     },
