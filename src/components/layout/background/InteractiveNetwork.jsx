@@ -62,69 +62,69 @@ function InteractiveNetwork() {
 
   // Helper to calculate and store neighbors for each node
   const calculateNeighbors = useCallback(() => {
-      neighborMap.current.clear();
-      if (nodes.current.length < 2) return;
+    neighborMap.current.clear();
+    if (nodes.current.length < 2) return;
 
-      for (let i = 0; i < nodes.current.length; i++) {
-          const nodeA = nodes.current[i];
-          const neighbors = [];
-          for (let j = 0; j < nodes.current.length; j++) {
-              if (i === j) continue; // Skip self
-              const nodeB = nodes.current[j];
-              const distAB = dist(nodeA.baseX, nodeA.baseY, nodeB.baseX, nodeB.baseY);
-              if (distAB < CONNECTION_RADIUS) {
-                  neighbors.push(nodeB.id);
-              }
-          }
-          neighborMap.current.set(nodeA.id, neighbors);
+    for (let i = 0; i < nodes.current.length; i++) {
+      const nodeA = nodes.current[i];
+      const neighbors = [];
+      for (let j = 0; j < nodes.current.length; j++) {
+        if (i === j) continue; // Skip self
+        const nodeB = nodes.current[j];
+        const distAB = dist(nodeA.baseX, nodeA.baseY, nodeB.baseX, nodeB.baseY);
+        if (distAB < CONNECTION_RADIUS) {
+          neighbors.push(nodeB.id);
+        }
       }
-      console.log("calculateNeighbors completed."); // Log neighbor calculation end
+      neighborMap.current.set(nodeA.id, neighbors);
+    }
+    console.log("calculateNeighbors completed."); // Log neighbor calculation end
   }, []); // No dependencies needed here
 
   // ===============================================
   // NODE SETUP (Uses nodeCount state)
   // ===============================================
   const setupNodes = useCallback((count) => {
-      nodes.current = [];
-      const width = networkCanvasRef.current?.width ?? window.innerWidth;
-      const height = networkCanvasRef.current?.height ?? window.innerHeight;
+    nodes.current = [];
+    const width = networkCanvasRef.current?.width ?? window.innerWidth;
+    const height = networkCanvasRef.current?.height ?? window.innerHeight;
 
-      // Use count in the loop condition
-      for (let i = 0; i < count; i++) { 
-        let x, y;
-        let attempts = 0;
-        let placed = false;
+    // Use count in the loop condition
+    for (let i = 0; i < count; i++) {
+      let x, y;
+      let attempts = 0;
+      let placed = false;
 
-        while (attempts < 5000 && !placed) {
-          x = Math.random() * width;
-          y = Math.random() * height;
+      while (attempts < 5000 && !placed) {
+        x = Math.random() * width;
+        y = Math.random() * height;
 
-          let tooClose = false;
-          for (const node of nodes.current) { 
-            if (dist(x, y, node.baseX, node.baseY) < MIN_NODE_DISTANCE) {
-              tooClose = true;
-              break;
-            }
+        let tooClose = false;
+        for (const node of nodes.current) {
+          if (dist(x, y, node.baseX, node.baseY) < MIN_NODE_DISTANCE) {
+            tooClose = true;
+            break;
           }
-
-          if (!tooClose) {
-            nodes.current.push({ 
-              baseX: x, 
-              baseY: y, 
-              id: i,
-              highlightIntensity: 0 
-            });
-            placed = true;
-          }
-          attempts++;
         }
 
-        if (!placed) {
-          console.warn(`Could not place node #${i + 1}; stopping early at ${nodes.current.length} nodes.`);
-          break; 
+        if (!tooClose) {
+          nodes.current.push({
+            baseX: x,
+            baseY: y,
+            id: i,
+            highlightIntensity: 0
+          });
+          placed = true;
         }
+        attempts++;
       }
-      calculateNeighbors(); // Call the defined function
+
+      if (!placed) {
+        console.warn(`Could not place node #${i + 1}; stopping early at ${nodes.current.length} nodes.`);
+        break;
+      }
+    }
+    calculateNeighbors(); // Call the defined function
   }, [calculateNeighbors]); // Add calculateNeighbors dependency
 
   // Memoized resize handler (NOW DEFINED AFTER setupNodes)
@@ -217,72 +217,72 @@ function InteractiveNetwork() {
       // --- Update Hovered Line ---
       let currentFrameHoveredLineId = null;
       if (mouse.current.x && mouse.current.y) {
-          let minDistToLine = LINE_HOVER_RADIUS;
-          for (let i = 0; i < nodes.current.length; i++) {
-              const nodeA = nodes.current[i];
-              const waveAx = nodeA.baseX + Math.sin(time.current + i) * WAVE_AMPLITUDE;
-              const waveAy = nodeA.baseY + Math.cos(time.current + i) * WAVE_AMPLITUDE;
-              for (let j = i + 1; j < nodes.current.length; j++) {
-                  const nodeB = nodes.current[j];
-                  const waveBx = nodeB.baseX + Math.sin(time.current + j) * WAVE_AMPLITUDE;
-                  const waveBy = nodeB.baseY + Math.cos(time.current + j) * WAVE_AMPLITUDE;
-                  const distAB = dist(waveAx, waveAy, waveBx, waveBy);
-                  if (distAB < CONNECTION_RADIUS) {
-                      const A = { x: waveAx, y: waveAy };
-                      const B = { x: waveBx, y: waveBy };
-                      const M = { x: mouse.current.x, y: mouse.current.y };
-                      const distToLine = pointToLineDistance(M, A, B);
-                      if (distToLine < minDistToLine) {
-                          minDistToLine = distToLine;
-                          currentFrameHoveredLineId = `${nodeA.id}-${nodeB.id}`;
-                      }
-                  }
+        let minDistToLine = LINE_HOVER_RADIUS;
+        for (let i = 0; i < nodes.current.length; i++) {
+          const nodeA = nodes.current[i];
+          const waveAx = nodeA.baseX + Math.sin(time.current + i) * WAVE_AMPLITUDE;
+          const waveAy = nodeA.baseY + Math.cos(time.current + i) * WAVE_AMPLITUDE;
+          for (let j = i + 1; j < nodes.current.length; j++) {
+            const nodeB = nodes.current[j];
+            const waveBx = nodeB.baseX + Math.sin(time.current + j) * WAVE_AMPLITUDE;
+            const waveBy = nodeB.baseY + Math.cos(time.current + j) * WAVE_AMPLITUDE;
+            const distAB = dist(waveAx, waveAy, waveBx, waveBy);
+            if (distAB < CONNECTION_RADIUS) {
+              const A = { x: waveAx, y: waveAy };
+              const B = { x: waveBx, y: waveBy };
+              const M = { x: mouse.current.x, y: mouse.current.y };
+              const distToLine = pointToLineDistance(M, A, B);
+              if (distToLine < minDistToLine) {
+                minDistToLine = distToLine;
+                currentFrameHoveredLineId = `${nodeA.id}-${nodeB.id}`;
               }
+            }
           }
+        }
       }
       hoveredLineId.current = currentFrameHoveredLineId;
 
       // --- Update Hovered Node ---
       let currentFrameHoveredId = null;
       if (mouse.current.x && mouse.current.y) {
-          let minDist = NODE_HOVER_RADIUS;
-          for (const node of nodes.current) {
-              const waveX = node.baseX + Math.sin(time.current + node.id) * WAVE_AMPLITUDE;
-              const waveY = node.baseY + Math.cos(time.current + node.id) * WAVE_AMPLITUDE;
-              const distToMouse = dist(waveX, waveY, mouse.current.x, mouse.current.y);
-              if (distToMouse < minDist) {
-                 minDist = distToMouse;
-                 currentFrameHoveredId = node.id;
-              }
+        let minDist = NODE_HOVER_RADIUS;
+        for (const node of nodes.current) {
+          const waveX = node.baseX + Math.sin(time.current + node.id) * WAVE_AMPLITUDE;
+          const waveY = node.baseY + Math.cos(time.current + node.id) * WAVE_AMPLITUDE;
+          const distToMouse = dist(waveX, waveY, mouse.current.x, mouse.current.y);
+          if (distToMouse < minDist) {
+            minDist = distToMouse;
+            currentFrameHoveredId = node.id;
           }
+        }
       }
       hoveredNodeId.current = currentFrameHoveredId;
 
       // --- Get Neighbors of Hovered Node ---
       const neighbors = hoveredNodeId.current !== null
-          ? neighborMap.current.get(hoveredNodeId.current) || []
-          : [];
+        ? neighborMap.current.get(hoveredNodeId.current) || []
+        : [];
       const neighborSet = new Set(neighbors);
 
       // --- Update Node Highlight Intensity ---
       for (const node of nodes.current) {
-          if (node.id === forceResetHighlightNodeId.current) {
-              node.highlightIntensity = 0;
-              forceResetHighlightNodeId.current = null;
-          } else {
-              let targetIntensity = 0;
-              if (node.id === hoveredNodeId.current) {
-                  targetIntensity = 1;
-              } else if (neighborSet.has(node.id)) {
-                  targetIntensity = 0.35;
-              } else if (hoveredLineId.current) {
-                  const [fromId, toId] = hoveredLineId.current.split('-').map(Number);
-                  if (node.id === fromId || node.id === toId) {
-                      targetIntensity = 0.8;
-                  }
-              }
-              node.highlightIntensity = targetIntensity;
+        if (node.id === forceResetHighlightNodeId.current) {
+          node.highlightIntensity = 0;
+          forceResetHighlightNodeId.current = null;
+        } else {
+          let targetIntensity = 0;
+          if (node.id === hoveredNodeId.current) {
+            targetIntensity = 1;
+          } else if (neighborSet.has(node.id)) {
+            targetIntensity = 0.35;
+          } else if (hoveredLineId.current) {
+            const [fromId, toId] = hoveredLineId.current.split('-').map(Number);
+            if (node.id === fromId || node.id === toId) {
+              targetIntensity = 0.8;
+            }
           }
+          node.highlightIntensity = targetIntensity;
+        }
       }
 
       // --- PASS 1: Draw Connections (Lines) ---
@@ -300,7 +300,7 @@ function InteractiveNetwork() {
             const nodeBIntensity = nodeB.highlightIntensity || 0;
             let lineHighlightIntensity = Math.max(0, Math.min(1, Math.max(nodeAIntensity, nodeBIntensity)));
             if (hoveredLineId.current === `${nodeA.id}-${nodeB.id}` || hoveredLineId.current === `${nodeB.id}-${nodeA.id}`) {
-                lineHighlightIntensity = Math.max(lineHighlightIntensity, 0.8);
+              lineHighlightIntensity = Math.max(lineHighlightIntensity, 0.8);
             }
             ctx.beginPath();
             ctx.moveTo(waveAx, waveAy);
@@ -324,19 +324,19 @@ function InteractiveNetwork() {
         pulse.currentRadius += pulse.expansionSpeed; // Use pulse specific speed
         pulse.alpha = PERIODIC_PULSE_COLOR_ALPHA * (1 - pulse.currentRadius / pulse.maxRadius);
         const isValidPulse = typeof pulse.startX === 'number' && !isNaN(pulse.startX) &&
-                             typeof pulse.startY === 'number' && !isNaN(pulse.startY) &&
-                             typeof pulse.currentRadius === 'number' && !isNaN(pulse.currentRadius) &&
-                             typeof pulse.alpha === 'number' && !isNaN(pulse.alpha) &&
-                             typeof pulse.lineWidth === 'number' && !isNaN(pulse.lineWidth);
+          typeof pulse.startY === 'number' && !isNaN(pulse.startY) &&
+          typeof pulse.currentRadius === 'number' && !isNaN(pulse.currentRadius) &&
+          typeof pulse.alpha === 'number' && !isNaN(pulse.alpha) &&
+          typeof pulse.lineWidth === 'number' && !isNaN(pulse.lineWidth);
 
         if (isValidPulse && pulse.alpha > 0 && pulse.currentRadius < pulse.maxRadius) {
-            ctx.beginPath();
-            ctx.arc(pulse.startX, pulse.startY, pulse.currentRadius, 0, Math.PI * 2);
-            ctx.strokeStyle = `rgba(0, 225, 255, ${pulse.alpha})`;
-            ctx.lineWidth = pulse.lineWidth;
-            ctx.stroke();
+          ctx.beginPath();
+          ctx.arc(pulse.startX, pulse.startY, pulse.currentRadius, 0, Math.PI * 2);
+          ctx.strokeStyle = `rgba(0, 225, 255, ${pulse.alpha})`;
+          ctx.lineWidth = pulse.lineWidth;
+          ctx.stroke();
         } else {
-            activePulses.current.splice(i, 1);
+          activePulses.current.splice(i, 1);
         }
       }
       ctx.restore();
@@ -348,7 +348,7 @@ function InteractiveNetwork() {
         const waveY = node.baseY + Math.cos(time.current + i) * WAVE_AMPLITUDE;
         const nodeHighlightIntensity = node.highlightIntensity || 0;
         if (nodeHighlightIntensity > 0.01) {
-           console.log(`Draw Node ${node.id}: highlightIntensity = ${nodeHighlightIntensity}`);
+          console.log(`Draw Node ${node.id}: highlightIntensity = ${nodeHighlightIntensity}`);
         }
         const baseNodeRadius = 6;
         const nodeRadius = baseNodeRadius + (baseNodeRadius * 0.5 * nodeHighlightIntensity);
@@ -417,27 +417,27 @@ function InteractiveNetwork() {
         const segments = Math.max(2, Math.floor(distTotal / 15));
         const JAGGEDNESS = 0.18;
         if (distTotal > 1) {
-            const perpX = -dy / distTotal;
-            const perpY = dx / distTotal;
-            for (let k = 1; k < segments; k++) {
-                const t = k / segments;
-                const midX = fromWaveX + dx * t;
-                const midY = fromWaveY + dy * t;
-                const displacementScale = Math.sin(t * Math.PI);
-                const displacement = (Math.random() - 0.5) * distTotal * JAGGEDNESS * displacementScale;
-                path.push({ x: midX + perpX * displacement, y: midY + perpY * displacement });
-            }
+          const perpX = -dy / distTotal;
+          const perpY = dx / distTotal;
+          for (let k = 1; k < segments; k++) {
+            const t = k / segments;
+            const midX = fromWaveX + dx * t;
+            const midY = fromWaveY + dy * t;
+            const displacementScale = Math.sin(t * Math.PI);
+            const displacement = (Math.random() - 0.5) * distTotal * JAGGEDNESS * displacementScale;
+            path.push({ x: midX + perpX * displacement, y: midY + perpY * displacement });
+          }
         }
         path.push({ x: toWaveX, y: toWaveY });
 
         // Helper to calculate path length (needs to be accessible here)
         // Could be defined outside or passed in if needed elsewhere
         function getPathLength(path) {
-            let length = 0;
-            for (let i = 0; i < path.length - 1; i++) {
-                length += dist(path[i].x, path[i].y, path[i+1].x, path[i+1].y);
-            }
-            return length;
+          let length = 0;
+          for (let i = 0; i < path.length - 1; i++) {
+            length += dist(path[i].x, path[i].y, path[i + 1].x, path[i + 1].y);
+          }
+          return length;
         }
 
         if (path.length < 2) continue;
@@ -462,7 +462,7 @@ function InteractiveNetwork() {
       }
 
     } catch (error) {
-        console.error("Error during canvas draw:", error);
+      console.error("Error during canvas draw:", error);
     }
 
     // Request next frame - IMPORTANT: Use a ref to store the ID
@@ -481,8 +481,8 @@ function InteractiveNetwork() {
 
     const ctx = networkCanvas.getContext('2d');
     if (!ctx) {
-        console.error("Failed to get 2D context");
-        return;
+      console.error("Failed to get 2D context");
+      return;
     }
     console.log("Got 2D context.");
 
@@ -511,17 +511,17 @@ function InteractiveNetwork() {
 
     // Energy line spawning
     function spawnEnergyLine() {
-      if (!isMounted || nodes.current.length < 2) return;
+      if (!isMounted || nodes.current.length < 2 || document.hidden) return;
       const fromNodeIndex = Math.floor(Math.random() * nodes.current.length);
       const fromNode = nodes.current[fromNodeIndex];
       const nearbyNodeIndices = [];
       for (let i = 0; i < nodes.current.length; i++) {
-          if (i === fromNodeIndex) continue;
-          const potentialToNode = nodes.current[i];
-          const distance = dist(fromNode.baseX, fromNode.baseY, potentialToNode.baseX, potentialToNode.baseY);
-          if (distance > 0 && distance < MAX_LIGHTNING_DISTANCE) {
-              nearbyNodeIndices.push(i);
-          }
+        if (i === fromNodeIndex) continue;
+        const potentialToNode = nodes.current[i];
+        const distance = dist(fromNode.baseX, fromNode.baseY, potentialToNode.baseX, potentialToNode.baseY);
+        if (distance > 0 && distance < MAX_LIGHTNING_DISTANCE) {
+          nearbyNodeIndices.push(i);
+        }
       }
       if (nearbyNodeIndices.length === 0) return;
       const toNodeIndex = nearbyNodeIndices[Math.floor(Math.random() * nearbyNodeIndices.length)];
@@ -530,6 +530,14 @@ function InteractiveNetwork() {
     }
     const lightningTimer = setInterval(spawnEnergyLine, LIGHTNING_INTERVAL);
 
+    // Visibility change handler to prevent buildup
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        energyLines.current = [];
+        activePulses.current = [];
+      }
+    };
+
     // Add window event listeners
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('touchstart', handleTouchStart, { passive: true });
@@ -537,6 +545,7 @@ function InteractiveNetwork() {
     window.addEventListener('touchend', handleTouchEnd);
     window.addEventListener('touchcancel', handleTouchEnd);
     window.addEventListener('resize', handleResize); // Listener remains
+    window.addEventListener('visibilitychange', handleVisibilityChange);
 
     // Animation loop runner
     function runAnimation() {
@@ -553,6 +562,7 @@ function InteractiveNetwork() {
       console.log("Cleaning up InteractiveNetwork effect");
       isMounted = false; // Set flag
       window.removeEventListener('resize', handleResize);
+      window.removeEventListener('visibilitychange', handleVisibilityChange);
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('touchstart', handleTouchStart);
       window.removeEventListener('touchmove', handleTouchMove);
@@ -563,8 +573,8 @@ function InteractiveNetwork() {
         cancelAnimationFrame(animationFrameId);
       }
     };
-  // Dependencies remain the same
-  }, [handleResize, calculateNodeCount, setupNodes, calculateNeighbors, handleMouseMove, handleTouchStart, handleTouchMove, handleTouchEnd, draw ]);
+    // Dependencies remain the same
+  }, [handleResize, calculateNodeCount, setupNodes, calculateNeighbors, handleMouseMove, handleTouchStart, handleTouchMove, handleTouchEnd, draw]);
 
   // Separate Effect for the periodic pulse timer
   useEffect(() => {
@@ -576,20 +586,20 @@ function InteractiveNetwork() {
     const { x: px, y: py } = P;
     const { x: ax, y: ay } = A;
     const { x: bx, y: by } = B;
-    
+
     const abx = bx - ax;
     const aby = by - ay;
     const abLen = Math.hypot(abx, aby);
-    
+
     if (abLen === 0) return Math.hypot(px - ax, py - ay);
-    
+
     // Calculate projection of point onto line
     const t = ((px - ax) * abx + (py - ay) * aby) / (abLen * abLen);
-    
+
     // If projection is outside segment, use distance to nearest endpoint
     if (t < 0) return Math.hypot(px - ax, py - ay);
     if (t > 1) return Math.hypot(px - bx, py - by);
-    
+
     // Calculate perpendicular distance to line
     const projx = ax + t * abx;
     const projy = ay + t * aby;
@@ -599,9 +609,9 @@ function InteractiveNetwork() {
   console.log("InteractiveNetwork component function end - returning JSX");
   return (
     <div className="fixed inset-0 z-0">
-      <canvas 
-        ref={networkCanvasRef} 
-        className="absolute top-0 left-0 w-full h-full pointer-events-auto" 
+      <canvas
+        ref={networkCanvasRef}
+        className="absolute top-0 left-0 w-full h-full pointer-events-auto"
       />
     </div>
   );

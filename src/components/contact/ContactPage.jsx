@@ -33,12 +33,12 @@ const ContactPage = () => {
     const email = 'contact@aliajib.com';
     try {
       // Try modern clipboard API first
-      await navigator.clipboard.writeText(email);
+      await window.navigator.clipboard.writeText(email);
       setCopySuccess(true);
-      console.log('Email copied using navigator.clipboard');
+      console.log('Email copied using window.navigator.clipboard');
       setTimeout(() => setCopySuccess(false), 2000);
     } catch (err) {
-      console.error('navigator.clipboard failed: ', err);
+      console.error('window.navigator.clipboard failed: ', err);
       // Fallback using document.execCommand
       try {
         const textArea = document.createElement('textarea');
@@ -95,9 +95,9 @@ const ContactPage = () => {
       if (!response.ok) {
         let errorData;
         try {
-            errorData = await response.json();
+          errorData = await response.json();
         } catch (parseError) {
-            // Ignore if response is not JSON
+          // Ignore if response is not JSON
         }
         throw new Error(errorData?.message || `HTTP error! status: ${response.status}`);
       }
@@ -111,7 +111,7 @@ const ContactPage = () => {
           setSubmitSuccess(false);
         }, 5000);
       } else {
-         throw new Error(result.message || 'An unexpected error occurred.');
+        throw new Error(result.message || 'An unexpected error occurred.');
       }
 
     } catch (error) {
@@ -140,7 +140,7 @@ const ContactPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Contact Information */}
           <div className="space-y-8">
-            <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-8 border border-gray-800">
+            <div className="bg-gray-900/50 backdrop-blur-3xl rounded-lg p-8 border border-gray-800">
               <h2 className="text-2xl font-bold text-white mb-6">{t('contact.infoTitle')}</h2>
               <div className="space-y-6">
                 {/* Email Item */}
@@ -193,7 +193,7 @@ const ContactPage = () => {
               </div>
             </div>
             {/* Social Links */}
-            <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-8 border border-gray-800">
+            <div className="bg-gray-900/50 backdrop-blur-3xl rounded-lg p-8 border border-gray-800">
               <h2 className="text-2xl font-bold text-white mb-6">{t('contact.connectTitle')}</h2>
               <div className="flex space-x-4">
                 {/* GitHub & LinkedIn links remain the same */}
@@ -220,7 +220,7 @@ const ContactPage = () => {
           </div>
 
           {/* Contact Form */}
-          <div className="bg-gray-900/50 backdrop-blur-sm rounded-lg p-8 border border-gray-800">
+          <div className="bg-gray-900/50 backdrop-blur-3xl rounded-lg p-8 border border-gray-800">
             <h2 className="text-2xl font-bold text-white mb-6">{t('contact.formTitle')}</h2>
 
             {submitSuccess && (

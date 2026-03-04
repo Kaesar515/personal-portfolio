@@ -21,32 +21,74 @@
   "about": {
     "title1": "Über",
     "title2": "Mich",
-    "paragraph1": "Ich bin Informatikstudent an der Frankfurt University of Applied Sciences mit praktischer Erfahrung in IT-Support, Full-Stack-Entwicklung und Cybersicherheit. Ursprünglich in der Medizin ausgebildet, wechselte ich nach meinem Umzug nach Deutschland das Fachgebiet und fand meine wahre Leidenschaft in der Technologie.",
-    "paragraph2_part1": "Mein Weg spiegelt Belastbarkeit, Anpassungsfähigkeit und Neugier wider – Eigenschaften, die ich täglich in meinen Codierungsprojekten anwende, wie z. B. bei dieser Portfolio-Website, die ich von Grund auf mit",
-    "paragraph2_part2": "und der",
-    "paragraph2_part3": "entwickelt habe. Neben meinem Studium habe ich einen Cybersicherheitskurs bei",
-    "paragraph2_part4": "absolviert und entwickle meine Fähigkeiten im Ethical Hacking und mit",
-    "paragraph2_part5": "Systemen kontinuierlich weiter.",
-    "paragraph3": "Über das Programmieren hinaus löse ich gerne kreativ Probleme, betreue internationale Studierende und erforsche die Schnittstelle zwischen Technologie, Logik und menschlichem Verhalten.",
+    "paragraph1": "Ich studiere Informatik an der Frankfurt University of Applied Sciences mit praktischem Schwerpunkt auf Softwareentwicklung und IT-Sicherheit. Kürzlich habe ich im Rahmen eines Universitätsprojekts eine Java-basierte Verkehrssimulation mit SUMO mitentwickelt. Dabei war ich an der Konzeption, Implementierung der Simulationslogik sowie der Systemintegration beteiligt. Das Projekt wurde mit einer sehr guten Bewertung abgeschlossen.",
+    "paragraph2": "Zusätzlich arbeite ich als Tutor für C-Programmierung an der Universität und unterstütze Studierende dabei, grundlegende Programmierkonzepte sowie Problemlösungsstrategien zu verstehen.",
+    "paragraph3": "Ursprünglich komme ich aus dem medizinischen Bereich. Nach meinem Umzug nach Deutschland habe ich mich bewusst für die Informatik entschieden und meine Leidenschaft für strukturierte, logikorientierte Systeme entdeckt. Diese Portfolio-Website habe ich eigenständig mit React und Tailwind CSS entwickelt und erweitere kontinuierlich meine Kenntnisse in Java, Linux und Cybersecurity.",
+    "paragraph4": "Neben meinem Studium engagiere ich mich ehrenamtlich als Turntrainer für Mädchen im Alter von 9 bis 12 Jahren. Dort übernehme ich Verantwortung, fördere Teamgeist und arbeite strukturiert mit jungen Sportlerinnen zusammen.",
+    "paragraph5": "Ich lege Wert auf Disziplin, kontinuierliche Weiterentwicklung und darauf, technisch saubere und nachhaltige Lösungen zu entwickeln.",
     "tagline": "Lassen Sie uns gemeinsam etwas Sinnvolles schaffen.",
     "linkedinLink": "Mehr über mich auf LinkedIn",
     "fluentTitle": "Spricht Fließend",
     "skillsTitle": "Fähigkeiten",
     "languages": [
-      { "key": "ar", "label": "Arabisch" },
-      { "key": "de", "label": "Deutsch" },
-      { "key": "en", "label": "Englisch" },
-      { "key": "sr", "label": "Serbisch" }
+      {
+        "key": "ar",
+        "label": "Arabisch"
+      },
+      {
+        "key": "de",
+        "label": "Deutsch"
+      },
+      {
+        "key": "en",
+        "label": "Englisch"
+      },
+      {
+        "key": "sr",
+        "label": "Serbisch"
+      }
     ],
     "skillsList": [
-      { "key": "ai", "label": "KI-gestützter Workflow" },
-      { "key": "os", "label": "Windows & Linux" },
-      { "key": "prog", "label": "Python & C" },
-      { "key": "web", "label": "HTML & CSS" },
-      { "key": "db", "label": "SQL" },
-      { "key": "sec", "label": "Cybersicherheit" },
-      { "key": "prob", "label": "Problemlösung" },
-      { "key": "more", "label": "Und Mehr" }
+      {
+        "key": "ai",
+        "label": "KI-gestützter Workflow"
+      },
+      {
+        "key": "os",
+        "label": "Windows & Linux"
+      },
+      {
+        "key": "prog",
+        "label": "Python & C"
+      },
+      {
+        "key": "web",
+        "label": "HTML & CSS"
+      },
+      {
+        "key": "db",
+        "label": "SQL"
+      },
+      {
+        "key": "java",
+        "label": "Java"
+      },
+      {
+        "key": "cpp",
+        "label": "C++"
+      },
+      {
+        "key": "sec",
+        "label": "Cybersicherheit"
+      },
+      {
+        "key": "prob",
+        "label": "Problemlösung"
+      },
+      {
+        "key": "more",
+        "label": "Und Mehr"
+      }
     ]
   },
   "projects": {
@@ -54,6 +96,7 @@
     "title2": "Projekte",
     "subtitle": "Hier sind einige der Projekte, an denen ich gearbeitet habe",
     "techUsed": "Verwendete Technologien",
+    "viewAll": "Alle Projekte ansehen",
     "viewCode": "Code ansehen",
     "readMore": "Mehr lesen",
     "comingSoon": "Projekte folgen in Kürze...",
@@ -88,16 +131,43 @@
           "Optimierung von <span class='font-bold'>Leistung und Rendering</span> durch <span class='text-[#00e1ff]'>requestAnimationFrame</span> und effiziente Handhabung von Assets."
         ]
       }
+    },
+    "traffic-simulation": {
+      "title": "Java-basiertes Verkehrssimulationssystem mit SUMO-Integration",
+      "description": "Im Rahmen eines Universitätsprojekts wurde ein Verkehrssimulationssystem auf Basis von Java und SUMO (Simulation of Urban Mobility) entwickelt. Das Ziel war es, eine strukturierte Anwendung zu entwerfen, die eine laufende Simulation kontrolliert, steuert und performant mit ihr interagiert.",
+      "detail": {
+        "longDescription": "<span class=\"font-bold\">Rolle:</span> Backend- & API-Architektur | Nebenläufigkeit & Performance | Teamprojekt (5 Personen)<br><br>Im Rahmen eines Universitätsprojekts wurde ein Verkehrssimulationssystem auf Basis von Java und SUMO (Simulation of Urban Mobility) entwickelt. Ziel war es, eine strukturierte Anwendung zu entwerfen, die eine laufende Simulation kontrolliert, steuert und performant mit ihr interagiert.<br><br>Das Projekt wurde im Team aus fünf Personen umgesetzt und mit einer sehr guten Bewertung abgeschlossen.<br><br><span class=\"font-bold italic\">Die erfolgreiche Umsetzung war nur durch klare Aufgabenverteilung, strukturierte Zusammenarbeit und die kombinierte Leistung aller Teammitglieder möglich.</span><br><br><a href=\"https://github.com/lilsemy/SUMO_Group4\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-[#00e1ff] hover:text-[#00f2ff] transition-colors duration-300 cursor-pointer inline-flex items-center\">Code ansehen → <svg class=\"inline-block w-6 h-6 ml-1\" fill=\"currentColor\" viewBox=\"0 0 24 24\"><path fill-rule=\"evenodd\" d=\"M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.137 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z\" clip-rule=\"evenodd\" /></svg></a>",
+        "features": [
+          "Konzeption und Implementierung einer <span class='font-bold'>API-Wrapper-Schicht</span> zur Abstraktion der Kommunikation zwischen der Java-Anwendung und der SUMO-Simulation",
+          "Entwicklung strukturierter <span class='font-bold'>OOP-basierter Klassen</span>, um Simulationsbefehle, Zustandsverwaltung und Datenzugriffe sauber zu kapseln",
+          "Implementierung eines <span class='font-bold'>thread-sicheren Snapshot-Mechanismus</span>, um konsistente Zustände ohne Blockierung der laufenden Simulation zu gewährleisten",
+          "Optimierung der <span class='font-bold'>Performance</span> durch Reduktion von Race Conditions und Minimierung unnötiger Synchronisation",
+          "Unterstützung bei der Integration von <span class='font-bold'>Backend-Logik und UI-Komponenten</span>",
+          "Mitwirkung an <span class='font-bold'>Architekturentscheidungen</span>, Code-Strukturierung und organisatorischer Teamkoordination"
+        ],
+        "challenges": [
+          "Sicherstellung von Thread-Sicherheit bei gleichzeitiger Wahrung der Systemperformance",
+          "Entwurf klarer Abstraktionsschichten zur Vermeidung enger Kopplung zwischen Simulationslogik und Anwendungscode",
+          "Synchronisation von Zustandsdaten in einer nebenläufigen Umgebung",
+          "Strukturierte Zusammenarbeit in einem technisch anspruchsvollen Teamprojekt"
+        ],
+        "imageDescriptions": [
+          "Programm-Dashboard",
+          "Beenden des Programms"
+        ]
+      }
     }
   },
   "projectDetail": {
     "notFound": "Projekt nicht gefunden",
     "backButton": "← Zurück zu den Projekten",
-    "backButtonShort": "Zurück",
+    "backToProjectsOverview": "← Alle Projekte",
     "featuresTitle": "Was ich gemacht habe",
     "challengesTitle": "Gelöste Herausforderungen",
     "techTitle": "Verwendete Technologien",
     "toolsTitle": "Verwendete Werkzeuge",
+    "nextProject": "Nächstes Projekt",
+    "prevProject": "Vorheriges Projekt",
     "viewOnGithub": "Code auf GitHub ansehen"
   },
   "contact": {
@@ -126,4 +196,4 @@
     "copyright": "© {{year}} <1>Ali Ajib</1>. Alle Rechte vorbehalten.",
     "designedBy": "Entworfen & Entwickelt mit <1></1> von <2>Ali Ajib</2>"
   }
-} 
+}

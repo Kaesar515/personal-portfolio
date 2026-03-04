@@ -48,7 +48,7 @@ const HomePage = () => {
   // Conditional text size for 'Learn More' button (text-base for German mobile)
   const learnMoreTextSizeClasses = isGerman ? "text-base md:text-lg" : "text-lg";
   // Base classes for 'Learn More' button (without padding and text size)
-  const learnMoreBaseClasses = `group relative font-semibold rounded-md text-white bg-gray-800 hover:bg-gray-700 border-2 border-[#00e1ff]/50 hover:border-[#00e1ff] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all duration-300 backdrop-blur-sm shadow-[0_8px_16px_rgba(0,225,255,0.1),0_3px_6px_rgba(0,225,255,0.2)] hover:shadow-[0_12px_24px_rgba(0,225,255,0.2),0_6px_12px_rgba(0,225,255,0.3)] -translate-y-0.5 hover:-translate-y-1 active:translate-y-0 before:absolute before:inset-0 before:rounded-md before:bg-[#00e1ff] before:transition-opacity before:duration-300 before:opacity-0 hover:before:opacity-5 before:-z-10 before:blur-xl`;
+  const learnMoreBaseClasses = `group relative font-semibold rounded-md text-white bg-gray-800 hover:bg-gray-700 border-2 border-[#00e1ff]/50 hover:border-[#00e1ff] focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:ring-offset-2 focus:ring-offset-gray-900 transition-all duration-300 backdrop-blur-3xl shadow-[0_8px_16px_rgba(0,225,255,0.1),0_3px_6px_rgba(0,225,255,0.2)] hover:shadow-[0_12px_24px_rgba(0,225,255,0.2),0_6px_12px_rgba(0,225,255,0.3)] -translate-y-0.5 hover:-translate-y-1 active:translate-y-0 before:absolute before:inset-0 before:rounded-md before:bg-[#00e1ff] before:transition-opacity before:duration-300 before:opacity-0 hover:before:opacity-5 before:-z-10 before:blur-xl`;
 
   // Conditional margin/gap for the image/button container
   const imageButtonContainerMarginClass = isGerman ? "mt-6 md:mt-8" : "mt-8";
@@ -80,14 +80,14 @@ const HomePage = () => {
                   />
                 </div>
                 <div className="flex flex-wrap justify-center gap-4">
-                    <ScrollLinkButton href="#projects">{t('home.viewProjects')}</ScrollLinkButton>
-                    <a
-                      href="#about"
-                      className={`${learnMoreBaseClasses} ${learnMorePaddingClasses} ${learnMoreTextSizeClasses}`}
-                    >
-                      <span className="relative z-10">{t('home.learnMore')}</span>
-                    </a>
-                    <ScrollLinkButton href="#contact">{t('home.getInTouch')}</ScrollLinkButton>
+                  <ScrollLinkButton href="#projects">{t('home.viewProjects')}</ScrollLinkButton>
+                  <a
+                    href="#about"
+                    className={`${learnMoreBaseClasses} ${learnMorePaddingClasses} ${learnMoreTextSizeClasses}`}
+                  >
+                    <span className="relative z-10">{t('home.learnMore')}</span>
+                  </a>
+                  <ScrollLinkButton href="#contact">{t('home.getInTouch')}</ScrollLinkButton>
                 </div>
               </div>
             </div>
@@ -98,8 +98,8 @@ const HomePage = () => {
       {/* Separator Line - Adjusted for mobile (35% shorter) */}
       <div className="h-1.5 w-40 sm:w-64 mx-auto my-4 bg-[#00e1ff]/60 rounded-full shadow-md shadow-[#00e1ff]/40"></div>
 
-      <section 
-        id="about" 
+      <section
+        id="about"
         className="py-4 md:py-8"
       >
         <AboutPage />
@@ -108,8 +108,8 @@ const HomePage = () => {
       {/* Separator Line - Adjusted for mobile (35% shorter) */}
       <div className="h-1.5 w-40 sm:w-64 mx-auto my-4 bg-[#00e1ff]/60 rounded-full shadow-md shadow-[#00e1ff]/40"></div>
 
-      <section 
-        id="projects" 
+      <section
+        id="projects"
         className="py-4 md:py-8"
       >
         <ProjectsPage />
@@ -118,8 +118,8 @@ const HomePage = () => {
       {/* Separator Line - Adjusted for mobile (35% shorter) */}
       <div className="h-1.5 w-40 sm:w-64 mx-auto my-4 bg-[#00e1ff]/60 rounded-full shadow-md shadow-[#00e1ff]/40"></div>
 
-      <section 
-        id="contact" 
+      <section
+        id="contact"
         className="py-4 md:py-8"
       >
         <ContactPage />

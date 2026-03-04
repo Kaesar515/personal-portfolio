@@ -4,16 +4,20 @@ import express from 'express';
 import cors from 'cors';
 import { Resend } from 'resend';
 import dotenv from 'dotenv';
-import path from 'path';
+import path from 'path'; // eslint-disable-line no-unused-vars
 
 // Load environment variables from .env.development.local
+// Load environment variables
+dotenv.config(); // Standard loading for production
+
+// If .env.development.local exists, it will override (handled automatically in many cases, but let's be explicit if needed for this specific setup)
 dotenv.config({ path: path.resolve(process.cwd(), '.env.development.local') });
 
 const app = express();
-const PORT = process.env.PORT || 3001; // Port for the backend server
+const PORT = process.env.PORT || 3001;
 
 // Middleware
-app.use(cors()); // Allow requests from Vite dev server
+app.use(cors()); // Allow all origins for development and ease of use
 app.use(express.json()); // Parse JSON request bodies
 
 // --- Replicated Logic from api/send-message.js ---
@@ -78,12 +82,12 @@ app.post('/api/send-message', async (req, res) => {
 
   // Check other required env vars
   if (!toEmail) {
-      console.error('TO_EMAIL_ADDRESS environment variable is not set.');
-      return res.status(500).json({ success: false, message: 'Server configuration error.' });
+    console.error('TO_EMAIL_ADDRESS environment variable is not set.');
+    return res.status(500).json({ success: false, message: 'Server configuration error.' });
   }
-   if (!process.env.RESEND_API_KEY) {
-      console.error('RESEND_API_KEY environment variable is not set.');
-      return res.status(500).json({ success: false, message: 'Server configuration error.' });
+  if (!process.env.RESEND_API_KEY) {
+    console.error('RESEND_API_KEY environment variable is not set.');
+    return res.status(500).json({ success: false, message: 'Server configuration error.' });
   }
 
   // Send email using Resend
@@ -98,8 +102,8 @@ app.post('/api/send-message', async (req, res) => {
     });
     console.log('Resend response:', data);
     if (data.error) {
-        console.error('Resend API Error:', data.error);
-        return res.status(500).json({ success: false, message: data.error.message || 'Failed to send email via Resend.' });
+      console.error('Resend API Error:', data.error);
+      return res.status(500).json({ success: false, message: data.error.message || 'Failed to send email via Resend.' });
     }
     console.log('Email sent successfully!');
     return res.status(200).json({ success: true });

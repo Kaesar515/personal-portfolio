@@ -11,9 +11,46 @@
 }
 
 /* Allow text selection in input fields and textareas */
-input, textarea {
+input,
+textarea {
   -webkit-user-select: text;
   -moz-user-select: text;
   -ms-user-select: text;
   user-select: text;
+}
+
+@keyframes shine-sweep {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  35% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes shine-sweep-reverse {
+  0% {
+    transform: translateX(100%);
+  }
+
+  35% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.animate-shine-sweep {
+  animation: shine-sweep 3s infinite ease-in-out;
+}
+
+.animate-shine-sweep-reverse {
+  animation: shine-sweep-reverse 3s infinite ease-in-out;
 }
